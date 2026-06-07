@@ -1,27 +1,33 @@
 fetch("./data/data.json")
-.then(res => res.json())
+.then(response => response.json())
 .then(data => {
 
-    const html = data.PRODUCTS.map(p => `
+    const html = data.PRODUCTS.map(product => `
         <div class="card">
 
-            <img src="${p.image_url}">
+            <img src="${product.image_url}" alt="">
 
-            <h3>${p.product_name}</h3>
+            <div class="card-body">
 
-            <p>${p.brand}</p>
+                <h3>${product.product_name}</h3>
 
-            <div class="price">
-                ${Number(p.sale_price).toLocaleString()}đ
+                <p>${product.brand}</p>
+
+                <div class="price">
+                    ${Number(product.sale_price).toLocaleString()}đ
+                </div>
+
+                <a
+                    href="${product.affiliate_link}"
+                    target="_blank"
+                    class="buy-btn">
+                    XEM GIÁ
+                </a>
+
             </div>
-
-            <a href="${p.affiliate_link}">
-                XEM GIÁ
-            </a>
 
         </div>
     `).join("");
 
     document.getElementById("products").innerHTML = html;
-
 });
