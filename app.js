@@ -176,10 +176,32 @@ target="_blank">
 
 <div class="image-wrap">
 
-${product.hot
-? `<div class="badge">🔥 HOT</div>`
-: ""
+${(() => {
+
+const text =
+(product.stock_text || "")
+.toUpperCase();
+
+if(
+text.includes("NEW")
+){
+return `<div class="badge badge-new">🆕 NEW</div>`;
 }
+
+if(
+text.includes("CHÁY") ||
+text.includes("SẮP CHÁY")
+){
+return `<div class="badge badge-low">🚨 SẮP CHÁY</div>`;
+}
+
+if(product.hot){
+return `<div class="badge badge-hot">🔥 HOT</div>`;
+}
+
+return "";
+
+})()}
 
 <img
 src="${product.image_url || ""}"
