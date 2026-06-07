@@ -213,7 +213,7 @@ text.includes("ORDER")
 text.includes("ĐẶT");
 
 return isPreOrder
-? "📦 GIỮ SUẤT PRE"
+? "GIỮ SUẤT NGAY"
 : "🛒 XEM GIÁ ĐÁY";
 
 })()}
