@@ -9,15 +9,13 @@
 
 <h1>Mạnh Hà Mê Chơi Đồ</h1>
 
-<div id="products"></div>
+<div id="products">Đang tải dữ liệu...</div>
 
 <script>
 
 fetch("https://sheetdb.io/api/v1/t13pc064b9hcm?sheet=PRODUCTS")
 .then(response => response.json())
 .then(data => {
-
-console.log(data);
 
 document.getElementById("products").innerHTML =
 "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
@@ -26,11 +24,11 @@ document.getElementById("products").innerHTML =
 .catch(error => {
 
 document.getElementById("products").innerHTML =
-"<h2>Lỗi:</h2><pre>" + error + "</pre>";
+"<h2>Lỗi</h2><pre>" + error + "</pre>";
 
 });
 
-</script>a
+</script>
 
 </body>
 </html>
