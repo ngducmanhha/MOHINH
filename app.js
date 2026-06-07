@@ -367,6 +367,14 @@ placeholder="🔍 Tìm tên sản phẩm...">
 <div class="tabs">
 
 <button
+class="tab active"
+data-filter="ALL">
+
+⭐ TẤT CẢ
+
+</button>
+
+<button
 class="tab"
 data-filter="FEATURED">
 
