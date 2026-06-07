@@ -17,44 +17,20 @@ fetch("https://sheetdb.io/api/v1/t13pc064b9hcm?sheet=PRODUCTS")
 .then(response => response.json())
 .then(data => {
 
-let html = "";
+console.log(data);
 
-data.forEach(product => {
+document.getElementById("products").innerHTML =
+"<pre>" + JSON.stringify(data, null, 2) + "</pre>";
 
-html += `
-<div style="
-border:1px solid #ccc;
-padding:15px;
-margin:15px;
-">
+})
+.catch(error => {
 
-<h2>${product.product_name}</h2>
-
-<p>Giá sale: ${product.sale_price}</p>
-
-<img
-src="${product.image_url}"
-width="200">
-
-<br><br>
-
-<a href="${product.affiliate_link}"
-target="_blank">
-
-XEM DEAL
-
-</a>
-
-</div>
-`;
+document.getElementById("products").innerHTML =
+"<h2>Lỗi:</h2><pre>" + error + "</pre>";
 
 });
 
-document.getElementById("products").innerHTML = html;
-
-});
-
-</script>
+</script>a
 
 </body>
 </html>
