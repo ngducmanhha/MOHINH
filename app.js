@@ -197,8 +197,7 @@ ${money(product.sale_price)}đ
 ${product.stock_text || ""}
 </div>
 
-<
-class="buy-btn">
+<div class="buy-btn">
 
 ${(() => {
 
