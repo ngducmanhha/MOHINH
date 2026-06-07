@@ -177,7 +177,7 @@ document.getElementById("app")
 <div class="logo-mark">
 
 <img
-src="https://i.ibb.co/CpnCzH0x/gn-001-gundam-exia-mobile-suit-gundam-unicorn-desktop-wallpaper-wallpaper-iphone-thumbnail-removebg.png"
+src="https://cdn-icons-png.flaticon.com/512/6143/6143353.png"
 alt="logo">
 
 </div>
