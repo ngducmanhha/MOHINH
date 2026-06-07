@@ -3,231 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Mạnh Hà Mê Chơi Đồ</title>
-
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    background:#111;
-    color:white;
-    font-family:Arial,sans-serif;
-    padding:15px;
-}
-
-.header{
-    text-align:center;
-    margin-bottom:20px;
-}
-
-.header h1{
-    font-size:28px;
-}
-
-.header p{
-    color:#aaa;
-    margin-top:5px;
-}
-
-.products{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:20px;
-}
-
-.card{
-    background:#1b1b1b;
-    border-radius:16px;
-    overflow:hidden;
-    box-shadow:0 4px 15px rgba(0,0,0,.4);
-}
-
-.card img{
-    width:100%;
-    display:block;
-}
-
-.card-content{
-    padding:15px;
-}
-
-.badge{
-    display:inline-block;
-    background:#ff3d00;
-    color:white;
-    padding:5px 10px;
-    border-radius:999px;
-    font-size:12px;
-    margin-bottom:10px;
-}
-
-.brand{
-    color:#aaa;
-    margin-bottom:8px;
-}
-
-.product-name{
-    font-size:20px;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-.original-price{
-    color:#888;
-    text-decoration:line-through;
-}
-
-.sale-price{
-    color:#ffd54f;
-    font-size:28px;
-    font-weight:bold;
-    margin:8px 0;
-}
-
-.stock{
-    color:#ff9800;
-    margin-bottom:15px;
-}
-
-.btn{
-    display:block;
-    width:100%;
-    text-align:center;
-    text-decoration:none;
-    background:#ff6d00;
-    color:white;
-    padding:14px;
-    border-radius:10px;
-    font-weight:bold;
-    transition:.2s;
-}
-
-.btn:hover{
-    opacity:.9;
-}
-
-.loading{
-    text-align:center;
-    color:#aaa;
-    padding:30px;
-}
-
-.error{
-    text-align:center;
-    color:red;
-    padding:30px;
-}
-
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#111;color:#fff}
+.container{max-width:480px;margin:auto;padding:12px}
+.hero{background:linear-gradient(135deg,#c40000,#ff3b00);padding:18px;border-radius:18px;margin:12px 0}
+.hero h1{font-size:28px;margin-bottom:8px}
+.hero p{font-size:14px;opacity:.95}
+.cta{display:block;background:#ffd400;color:#000;text-align:center;padding:14px;border-radius:12px;text-decoration:none;font-weight:bold;margin-top:12px}
+.section-title{font-size:22px;margin:20px 0 12px}
+.prize-box,.social-box{background:#1b1b1b;padding:14px;border-radius:16px;margin-bottom:14px}
+.product{background:#1b1b1b;border-radius:18px;overflow:hidden;margin-bottom:18px}
+.product img{width:100%;display:block}
+.content{padding:14px}
+.hot{display:inline-block;background:#ff3b00;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:bold}
+.brand{color:#aaa;margin-top:8px}
+.name{font-size:20px;font-weight:bold;margin:8px 0}
+.old{text-decoration:line-through;color:#888}
+.sale{font-size:30px;color:#ffd54f;font-weight:bold;margin:6px 0}
+.stock{color:#ff9800;margin-bottom:12px}
+.btn{display:block;text-align:center;background:#ff6d00;color:#fff;text-decoration:none;padding:14px;border-radius:12px;font-weight:bold}
+.loading{text-align:center;padding:30px}
 </style>
-
 </head>
-
 <body>
-
-<div class="header">
-    <h1>🔥 Mạnh Hà Mê Chơi Đồ</h1>
-    <p>Trạm Deal Giá Đáy</p>
-</div>
-
-<div id="products" class="products">
-
-    <div class="loading">
-        Đang tải sản phẩm...
-    </div>
-
+<div class="container">
+<div id="app"><div class="loading">Đang tải dữ liệu...</div></div>
 </div>
 
 <script>
+const API="https://sheetdb.io/api/v1/t13pc064b9hcm";
 
-const API_URL =
-"https://sheetdb.io/api/v1/t13pc064b9hcm?sheet=PRODUCTS";
+async function loadSheet(sheet){
+ const r=await fetch(API+"?sheet="+sheet);
+ return await r.json();
+}
 
-fetch(API_URL)
-.then(response => response.json())
-.then(data => {
+function kvToObj(rows){
+ const obj={};
+ rows.forEach(r=>obj[r.key]=r.value);
+ return obj;
+}
 
-    let html = "";
+async function init(){
+ try{
+   const [configRows,eventRows,products,prizes] = await Promise.all([
+      loadSheet("CONFIG"),
+      loadSheet("EVENT"),
+      loadSheet("PRODUCTS"),
+      loadSheet("PRIZES")
+   ]);
 
-    data.forEach(product => {
+   const config=kvToObj(configRows);
+   const event=kvToObj(eventRows);
 
-        if(product.active !== "TRUE"){
-            return;
-        }
+   document.title=config.page_title || "Mạnh Hà Mê Chơi Đồ";
 
-        html += `
+   let html='';
 
-        <div class="card">
+   html += `
+   <div class="hero">
+      <h1>${config.page_title || 'Mạnh Hà Mê Chơi Đồ'}</h1>
+      <p>${event.description || ''}</p>
+      <p><b>${event.start_date || ''}</b> → <b>${event.end_date || ''}</b></p>
+      <a class="cta" href="${event.form_link || '#'}" target="_blank">
+         ${event.button_text || 'Nhận số quay thưởng'}
+      </a>
+   </div>
+   `;
 
-            <img
-            src="${product.image_url}"
-            alt="${product.product_name}"
-            >
+   html += '<div class="section-title">🎁 Giải thưởng</div>';
+   html += '<div class="prize-box">';
 
-            <div class="card-content">
+   prizes.forEach(p=>{
+      html += `<div style="margin-bottom:10px">🏆 ${p.name}</div>`;
+   });
 
-                ${product.hot === "TRUE"
-                ? `<div class="badge">🔥 HOT</div>`
-                : ""
-                }
+   html += '</div>';
 
-                <div class="brand">
-                    ${product.brand || ""}
-                </div>
+   html += '<div class="section-title">🔥 Deal nổi bật</div>';
 
-                <div class="product-name">
-                    ${product.product_name || ""}
-                </div>
+   products
+   .filter(p=>p.active==="TRUE")
+   .forEach(p=>{
 
-                <div class="original-price">
-                    Giá gốc: ${product.original_price || ""}
-                </div>
+      html += `
+      <div class="product">
 
-                <div class="sale-price">
-                    ${product.sale_price || ""}
-                </div>
+         <img src="${p.image_url || ''}">
 
-                <div class="stock">
-                    ${product.stock_text || ""}
-                </div>
+         <div class="content">
 
-                <a
-                href="${product.affiliate_link || "#"}"
-                target="_blank"
-                class="btn"
-                >
-                🛒 XEM GIÁ ĐÁY
-                </a>
+            ${p.hot==="TRUE" ? '<div class="hot">🔥 HOT</div>' : ''}
 
-            </div>
+            <div class="brand">${p.brand || ''}</div>
 
-        </div>
+            <div class="name">${p.product_name || ''}</div>
 
-        `;
-    });
+            <div class="old">Giá gốc: ${p.original_price || ''}</div>
 
-    document.getElementById("products").innerHTML = html;
+            <div class="sale">${p.sale_price || ''}</div>
 
-})
-.catch(error => {
+            <div class="stock">${p.stock_text || ''}</div>
 
-    document.getElementById("products").innerHTML = `
-    <div class="error">
-        Không tải được dữ liệu<br><br>
-        ${error}
-    </div>
-    `;
+            <a class="btn"
+               href="${p.affiliate_link || '#'}"
+               target="_blank">
+               🛒 XEM GIÁ ĐÁY
+            </a>
 
-    console.error(error);
+         </div>
+      </div>
+      `;
+   });
 
-});
+   html += `
+   <div class="social-box">
+      <a class="btn"
+      href="${config.zalo_link || '#'}"
+      target="_blank">
+      👥 THAM GIA NHÓM ZALO
+      </a>
+   </div>
+   `;
 
+   document.getElementById('app').innerHTML=html;
+
+ }catch(e){
+   document.getElementById('app').innerHTML='Lỗi: '+e;
+ }
+}
+
+init();
 </script>
-
 </body>
 </html>
