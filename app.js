@@ -1,12 +1,9 @@
 let ALL_PRODUCTS = [];
 let CURRENT_FILTER = "ALL";
+let SEARCH_KEYWORD = "";
 
 function money(value){
-
-return Number(
-value || 0
-).toLocaleString("vi-VN");
-
+return Number(value || 0).toLocaleString("vi-VN");
 }
 
 function renderProducts(){
@@ -27,6 +24,25 @@ p => p.hot === true
 
 }
 
+else if(CURRENT_FILTER === "PREORDER"){
+
+products =
+products.filter(product => {
+
+const text =
+(product.stock_text || "")
+.toUpperCase();
+
+return (
+text.includes("PRE") ||
+text.includes("ĐẶT") ||
+text.includes("ORDER")
+);
+
+});
+
+}
+
 else if(CURRENT_FILTER !== "ALL"){
 
 products =
@@ -34,8 +50,21 @@ products.filter(product =>
 
 (product.brand || "")
 .toUpperCase()
+.includes(CURRENT_FILTER)
+
+);
+
+}
+
+if(SEARCH_KEYWORD){
+
+products =
+products.filter(product =>
+
+(product.product_name || "")
+.toLowerCase()
 .includes(
-CURRENT_FILTER
+SEARCH_KEYWORD.toLowerCase()
 )
 
 );
@@ -43,7 +72,6 @@ CURRENT_FILTER
 }
 
 container.innerHTML =
-
 products.map(product => `
 
 <div class="card">
@@ -51,66 +79,43 @@ products.map(product => `
 <div class="image-wrap">
 
 ${product.hot
-? `
-<div class="badge">
-🔥 HOT
-</div>
-`
+? `<div class="badge">🔥 HOT</div>`
 : ""
 }
 
 <img
 src="${product.image_url || ""}"
 alt="${product.product_name || ""}"
-loading="lazy"
-onerror="
-this.src='https://placehold.co/600x600?text=NO+IMAGE'
-"
->
+loading="lazy">
 
 </div>
 
 <div class="card-content">
 
 <div class="brand">
-
 ${product.brand || ""}
-
 </div>
 
 <div class="name">
-
 ${product.product_name || ""}
-
 </div>
 
 <div class="old-price">
-
-${money(
-product.original_price
-)}đ
-
+${money(product.original_price)}đ
 </div>
 
 <div class="sale-price">
-
-${money(
-product.sale_price
-)}đ
-
+${money(product.sale_price)}đ
 </div>
 
 <div class="stock">
-
 ${product.stock_text || ""}
-
 </div>
 
 <a
 class="buy-btn"
 href="${product.affiliate_link || "#"}"
-target="_blank"
->
+target="_blank">
 
 🛒 XEM GIÁ ĐÁY
 
@@ -130,66 +135,37 @@ try{
 
 const response =
 await fetch(
-"./data/data.json?t="+
-Date.now()
+"./data/data.json?t="+Date.now()
 );
-
-if(!response.ok){
-
-throw new Error(
-"Không tải được data.json"
-);
-
-}
 
 const data =
 await response.json();
 
 const config = {};
-
-(data.CONFIG || [])
-.forEach(item => {
-
-config[item.key] =
-item.value;
-
+(data.CONFIG || []).forEach(item=>{
+config[item.key]=item.value;
 });
 
 const event = {};
-
-(data.EVENT || [])
-.forEach(item => {
-
-event[item.key] =
-item.value;
-
+(data.EVENT || []).forEach(item=>{
+event[item.key]=item.value;
 });
 
 ALL_PRODUCTS =
 (data.PRODUCTS || [])
-.filter(
-p => p.active === true
-);
+.filter(p=>p.active===true);
 
 const brands =
 
 [
 ...new Set(
-
 ALL_PRODUCTS.map(
-p =>
-(p.brand || "")
-.toUpperCase()
+p=>(p.brand||"").toUpperCase()
 )
-
 )
 ]
 
 .filter(Boolean);
-
-document.title =
-config.page_title ||
-"Mạnh Hà Mê Chơi Đồ";
 
 document.getElementById("app")
 .innerHTML = `
@@ -199,22 +175,21 @@ document.getElementById("app")
 <div class="logo">
 
 <div class="logo-mark">
-🤖
+
+<img
+src="https://i.ibb.co/CpnCzH0x/gn-001-gundam-exia-mobile-suit-gundam-unicorn-desktop-wallpaper-wallpaper-iphone-thumbnail-removebg.png"
+alt="logo">
+
 </div>
 
-<div>
+<div class="logo-text">
 
 <h1>
-
-${config.page_title ||
-"Mạnh Hà Mê Chơi Đồ"}
-
+${config.page_title || ""}
 </h1>
 
 <p>
-
 TRẠM DEAL GIÁ ĐÁY
-
 </p>
 
 </div>
@@ -228,15 +203,9 @@ class="icon-btn"
 href="https://${config.zalo_link}"
 target="_blank">
 
-💬
-
-</a>
-
-<a
-class="icon-btn"
-href="#">
-
-🛒
+<img
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/120px-Icon_of_Zalo.svg.png"
+alt="zalo">
 
 </a>
 
@@ -249,15 +218,11 @@ href="#">
 <div class="hero-box">
 
 <div class="hero-title">
-
 ${event.hero_title || ""}
-
 </div>
 
 <div class="hero-sub">
-
 ${event.hero_subtitle || ""}
-
 </div>
 
 <a
@@ -265,8 +230,7 @@ class="hero-btn"
 href="${event.form_link || "#"}"
 target="_blank">
 
-🎁
-${event.button_text || ""}
+🎁 ${event.button_text || ""}
 
 </a>
 
@@ -274,9 +238,17 @@ ${event.button_text || ""}
 
 </section>
 
-<div
-class="tabs"
-id="tabs">
+<div class="search-wrap">
+
+<input
+type="text"
+id="searchBox"
+class="search-box"
+placeholder="🔍 Tìm tên sản phẩm...">
+
+</div>
+
+<div class="tabs">
 
 <button
 class="tab active"
@@ -294,7 +266,15 @@ data-filter="HOT">
 
 </button>
 
-${brands.map(brand => `
+<button
+class="tab"
+data-filter="PREORDER">
+
+📦 PRE-ORDER
+
+</button>
+
+${brands.map(brand=>`
 
 <button
 class="tab"
@@ -319,23 +299,32 @@ id="products">
 renderProducts();
 
 document
-.querySelectorAll(".tab")
-.forEach(tab => {
+.getElementById("searchBox")
+.addEventListener(
+"input",
+function(){
 
-tab.onclick = () => {
+SEARCH_KEYWORD =
+this.value.trim();
+
+renderProducts();
+
+}
+);
+
+document
+.querySelectorAll(".tab")
+.forEach(tab=>{
+
+tab.onclick=()=>{
 
 document
 .querySelectorAll(".tab")
 .forEach(
-t =>
-t.classList.remove(
-"active"
-)
+t=>t.classList.remove("active")
 );
 
-tab.classList.add(
-"active"
-);
+tab.classList.add("active");
 
 CURRENT_FILTER =
 tab.dataset.filter;
@@ -349,27 +338,15 @@ renderProducts();
 }
 catch(error){
 
-console.error(error);
-
 document.body.innerHTML = `
-
-<div
-style="
+<div style="
 padding:20px;
 color:white;
 font-family:Arial;
 ">
-
-<h2>
-Lỗi tải dữ liệu
-</h2>
-
-<p>
-${error.message}
-</p>
-
+<h2>Lỗi tải dữ liệu</h2>
+<p>${error.message}</p>
 </div>
-
 `;
 
 }
