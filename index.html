@@ -1,18 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Mạnh Hà Mê Chơi Đồ</title>
 </head>
+
 <body>
+
+<h1>Mạnh Hà Mê Chơi Đồ</h1>
 
 <div id="products"></div>
 
 <script>
-fetch("https://sheetdb.io/api/v1/t13pc064b9hcm")
+
+fetch("https://sheetdb.io/api/v1/t13pc064b9hcm?sheet=PRODUCTS")
 .then(response => response.json())
 .then(data => {
-    console.log(data);
+
+let html = "";
+
+data.forEach(product => {
+
+html += `
+<div style="
+border:1px solid #ccc;
+padding:15px;
+margin:15px;
+">
+
+<h2>${product.product_name}</h2>
+
+<p>Giá sale: ${product.sale_price}</p>
+
+<img
+src="${product.image_url}"
+width="200">
+
+<br><br>
+
+<a href="${product.affiliate_link}"
+target="_blank">
+
+XEM DEAL
+
+</a>
+
+</div>
+`;
+
 });
+
+document.getElementById("products").innerHTML = html;
+
+});
+
 </script>
 
 </body>
