@@ -173,7 +173,6 @@ ${product.brand || ""}
 </div>
 
 <div class="name">
-<div class="name">
 ${product.product_name || ""}
 </div>
 
