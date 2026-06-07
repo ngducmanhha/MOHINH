@@ -161,12 +161,26 @@ border:1px solid rgba(255,255,255,.08);
 color:#8b95a7;
 }
 
-.tabs{
+.tab{
+
+height:44px;
+
 display:flex;
-gap:8px;
-overflow-x:auto;
-padding:0 12px 14px;
-scrollbar-width:none;
+
+align-items:center;
+
+justify-content:center;
+
+text-align:center;
+
+padding:0 8px;
+
+font-size:12px;
+
+font-weight:800;
+
+border-radius:12px;
+
 }
 
 .tabs::-webkit-scrollbar{
