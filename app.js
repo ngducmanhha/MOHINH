@@ -150,6 +150,11 @@ SEARCH_KEYWORD.toLowerCase()
 container.innerHTML =
 products.map(product => `
 
+<a
+class="card-link"
+href="${product.affiliate_link || "#"}"
+target="_blank">
+
 <div class="card">
 
 <div class="image-wrap">
@@ -193,9 +198,7 @@ ${product.stock_text || ""}
 </div>
 
 <a
-class="buy-btn"
-href="${product.affiliate_link || "#"}"
-target="_blank">
+class="buy-btn">
 
 ${(() => {
 
@@ -217,11 +220,13 @@ return isPreOrder
 
 })()}
 
+</div>
+
+</div>
+
+</div>
+
 </a>
-
-</div>
-
-</div>
 
 `).join("");
 
