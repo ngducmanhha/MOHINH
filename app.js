@@ -1,235 +1,274 @@
+let ALL_PRODUCTS = [];
+let CURRENT_FILTER = "ALL";
+
+function money(v){
+return Number(v || 0).toLocaleString("vi-VN");
+}
+
+function renderProducts(){
+
+const container =
+document.getElementById("products");
+
+let products = [...ALL_PRODUCTS];
+
+if(CURRENT_FILTER === "HOT"){
+products =
+products.filter(p => p.hot);
+}
+
+else if(CURRENT_FILTER !== "ALL"){
+
+products =
+products.filter(p =>
+(p.brand || "")
+.toUpperCase()
+.includes(CURRENT_FILTER)
+);
+
+}
+
+container.innerHTML =
+products.map(product => `
+
+<div class="card">
+
+<div class="image-wrap">
+
+${product.hot
+? '<div class="badge">HOT</div>'
+: ''}
+
+<img
+src="${product.image_url || ''}"
+loading="lazy"
+onerror="this.src='https://placehold.co/600x600?text=No+Image'"
+
+>
+
+</div>
+
+<div class="card-content">
+
+<div class="brand">
+${product.brand || ''}
+</div>
+
+<div class="name">
+${product.product_name || ''}
+</div>
+
+<div class="old-price">
+${money(product.original_price)}đ
+</div>
+
+<div class="sale-price">
+${money(product.sale_price)}đ
+</div>
+
+<div class="stock">
+${product.stock_text || ''}
+</div>
+
+<a
+class="buy-btn"
+href="${product.affiliate_link || '#'}"
+target="_blank">
+
+XEM GIÁ ĐÁY
+
+</a>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
 async function loadSite(){
 
-```
 try{
 
-    const response =
-    await fetch(
-        "./data/data.json?t="+Date.now()
-    );
+const response =
+await fetch(
+"./data/data.json?t=" +
+Date.now()
+);
 
-    const data =
-    await response.json();
+const data =
+await response.json();
 
-    const config = {};
+const config = {};
+(data.CONFIG || [])
+.forEach(i => {
+config[i.key] = i.value;
+});
 
-    data.CONFIG.forEach(item=>{
+const event = {};
+(data.EVENT || [])
+.forEach(i => {
+event[i.key] = i.value;
+});
 
-        config[item.key] =
-        item.value;
+ALL_PRODUCTS =
+(data.PRODUCTS || [])
+.filter(p => p.active);
 
-    });
+const brands =
+[
+...new Set(
+ALL_PRODUCTS.map(
+p => (p.brand || "").toUpperCase()
+)
+)
+].filter(Boolean);
 
-    const event = {};
+document.getElementById("app")
+.innerHTML = `
 
-    data.EVENT.forEach(item=>{
+<header class="header">
 
-        event[item.key] =
-        item.value;
+<div class="logo">
 
-    });
+<h1>
+${config.page_title || "Mạnh Hà Mê Chơi Đồ"}
+</h1>
 
-    let products =
-    data.PRODUCTS || [];
+<p>
+TRẠM DEAL GIÁ ĐÁY
+</p>
 
-    products =
-    products.filter(
-        p => p.active === true
-    );
+</div>
 
-    const html = `
+<div>
 
-    <header class="header">
+<a
+class="icon-btn"
+href="https://${config.zalo_link || ''}"
+target="_blank">
 
-        <div>
+💬
 
-            <div class="logo-title">
+</a>
 
-                ${config.page_title}
+</div>
 
-            </div>
+</header>
 
-            <div class="logo-sub">
+<section class="hero">
 
-                TRẠM DEAL GIÁ ĐÁY
+<div class="hero-box">
 
-            </div>
+<div class="hero-title">
+${event.hero_title || ''}
+</div>
 
-        </div>
+<div class="hero-sub">
+${event.hero_subtitle || ''}
+</div>
 
-        <div class="header-links">
+<a
+class="hero-btn"
+href="${event.form_link || '#'}"
+target="_blank">
 
-            <a
-            class="header-link"
-            href="https://${config.zalo_link}"
-            target="_blank">
+${event.button_text || 'THAM GIA'}
 
-            💬
+</a>
 
-            </a>
+</div>
 
-            <a
-            class="header-link"
-            href="#">
+</section>
 
-            🛒
+<div class="tabs" id="tabs">
 
-            </a>
+<button
+class="tab active"
+data-filter="ALL">
 
-        </div>
+TẤT CẢ
 
-    </header>
+</button>
 
-    <section class="hero">
+<button
+class="tab"
+data-filter="HOT">
 
-        <div class="hero-box">
+SP HOT
 
-            <div class="hero-title">
+</button>
 
-                ${event.hero_title}
+${brands.map(brand => `
 
-            </div>
+<button
+class="tab"
+data-filter="${brand}">
 
-            <div class="hero-sub">
+${brand}
 
-                ${event.hero_subtitle}
+</button>
 
-            </div>
+`).join("")}
 
-            <a
-            class="hero-btn"
-            href="${event.form_link}"
-            target="_blank">
+</div>
 
-                ${event.button_text}
+<section
+class="products"
+id="products">
 
-            </a>
+</section>
 
-        </div>
+`;
 
-    </section>
+renderProducts();
 
-    <div class="tabs">
+document
+.querySelectorAll(".tab")
+.forEach(tab => {
 
-        <button class="tab active">
-            DEAL SỐC
-        </button>
+tab.onclick = () => {
 
-        <button class="tab">
-            SP HOT
-        </button>
+document
+.querySelectorAll(".tab")
+.forEach(t =>
+t.classList.remove("active")
+);
 
-        <button class="tab">
-            PRE-ORDER
-        </button>
+tab.classList.add("active");
 
-        <button class="tab">
-            IN ERA
-        </button>
+CURRENT_FILTER =
+tab.dataset.filter;
 
-        <button class="tab">
-            MOTOR NUCLEAR
-        </button>
+renderProducts();
 
-        <button class="tab">
-            SNAA
-        </button>
+};
 
-    </div>
-
-    <section class="products">
-
-    ${products.map(product=>`
-
-        <div class="card">
-
-            <div class="image-wrap">
-
-                ${
-                product.hot
-                ?
-                `<div class="badge">
-                HOT
-                </div>`
-                :
-                ""
-                }
-
-                <img
-                src="${product.image_url}"
-                loading="lazy">
-
-            </div>
-
-            <div class="card-content">
-
-                <div class="brand">
-
-                    ${product.brand}
-
-                </div>
-
-                <div class="name">
-
-                    ${product.product_name}
-
-                </div>
-
-                <div class="old-price">
-
-                    ${Number(
-                    product.original_price || 0
-                    ).toLocaleString()}đ
-
-                </div>
-
-                <div class="sale-price">
-
-                    ${Number(
-                    product.sale_price || 0
-                    ).toLocaleString()}đ
-
-                </div>
-
-                <div class="stock">
-
-                    ${product.stock_text || ""}
-
-                </div>
-
-                <a
-                class="buy-btn"
-                href="${product.affiliate_link}"
-                target="_blank">
-
-                XEM GIÁ ĐÁY
-
-                </a>
-
-            </div>
-
-        </div>
-
-    `).join("")}
-
-    </section>
-
-    `;
-
-    document
-    .getElementById("app")
-    .innerHTML = html;
+});
 
 }
 catch(error){
 
-    document.body.innerHTML =
-    `<div style="padding:20px">
-        ${error.message}
-    </div>`;
+document.body.innerHTML = `
+
+<div style="
+padding:20px;
+color:white;
+font-family:Arial;
+">
+
+<h2>Lỗi tải dữ liệu</h2>
+
+<p>${error.message}</p>
+
+</div>
+
+`;
+
+console.error(error);
 
 }
-```
 
 }
 
