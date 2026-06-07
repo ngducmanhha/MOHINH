@@ -175,6 +175,16 @@ padding:0 12px 14px;
 
 justify-content:start;
 
+overflow-x:auto;
+
+overflow-y:hidden;
+
+scrollbar-width:none;
+
+-webkit-overflow-scrolling:touch;
+
+touch-action:pan-x;
+
 }
 .tab{
 
