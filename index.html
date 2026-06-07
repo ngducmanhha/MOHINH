@@ -1,30 +1,229 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Mạnh Hà Mê Chơi Đồ</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#111;
+    color:white;
+    font-family:Arial,sans-serif;
+    padding:15px;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.header h1{
+    font-size:28px;
+}
+
+.header p{
+    color:#aaa;
+    margin-top:5px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+}
+
+.card{
+    background:#1b1b1b;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 4px 15px rgba(0,0,0,.4);
+}
+
+.card img{
+    width:100%;
+    display:block;
+}
+
+.card-content{
+    padding:15px;
+}
+
+.badge{
+    display:inline-block;
+    background:#ff3d00;
+    color:white;
+    padding:5px 10px;
+    border-radius:999px;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.brand{
+    color:#aaa;
+    margin-bottom:8px;
+}
+
+.product-name{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.original-price{
+    color:#888;
+    text-decoration:line-through;
+}
+
+.sale-price{
+    color:#ffd54f;
+    font-size:28px;
+    font-weight:bold;
+    margin:8px 0;
+}
+
+.stock{
+    color:#ff9800;
+    margin-bottom:15px;
+}
+
+.btn{
+    display:block;
+    width:100%;
+    text-align:center;
+    text-decoration:none;
+    background:#ff6d00;
+    color:white;
+    padding:14px;
+    border-radius:10px;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.btn:hover{
+    opacity:.9;
+}
+
+.loading{
+    text-align:center;
+    color:#aaa;
+    padding:30px;
+}
+
+.error{
+    text-align:center;
+    color:red;
+    padding:30px;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>Mạnh Hà Mê Chơi Đồ</h1>
+<div class="header">
+    <h1>🔥 Mạnh Hà Mê Chơi Đồ</h1>
+    <p>Trạm Deal Giá Đáy</p>
+</div>
 
-<div id="products">Đang tải dữ liệu...</div>
+<div id="products" class="products">
+
+    <div class="loading">
+        Đang tải sản phẩm...
+    </div>
+
+</div>
 
 <script>
 
-fetch("https://sheetdb.io/api/v1/t13pc064b9hcm?sheet=PRODUCTS")
+const API_URL =
+"https://sheetdb.io/api/v1/t13pc064b9hcm?sheet=PRODUCTS";
+
+fetch(API_URL)
 .then(response => response.json())
 .then(data => {
 
-document.getElementById("products").innerHTML =
-"<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+    let html = "";
+
+    data.forEach(product => {
+
+        if(product.active !== "TRUE"){
+            return;
+        }
+
+        html += `
+
+        <div class="card">
+
+            <img
+            src="${product.image_url}"
+            alt="${product.product_name}"
+            >
+
+            <div class="card-content">
+
+                ${product.hot === "TRUE"
+                ? `<div class="badge">🔥 HOT</div>`
+                : ""
+                }
+
+                <div class="brand">
+                    ${product.brand || ""}
+                </div>
+
+                <div class="product-name">
+                    ${product.product_name || ""}
+                </div>
+
+                <div class="original-price">
+                    Giá gốc: ${product.original_price || ""}
+                </div>
+
+                <div class="sale-price">
+                    ${product.sale_price || ""}
+                </div>
+
+                <div class="stock">
+                    ${product.stock_text || ""}
+                </div>
+
+                <a
+                href="${product.affiliate_link || "#"}"
+                target="_blank"
+                class="btn"
+                >
+                🛒 XEM GIÁ ĐÁY
+                </a>
+
+            </div>
+
+        </div>
+
+        `;
+    });
+
+    document.getElementById("products").innerHTML = html;
 
 })
 .catch(error => {
 
-document.getElementById("products").innerHTML =
-"<h2>Lỗi</h2><pre>" + error + "</pre>";
+    document.getElementById("products").innerHTML = `
+    <div class="error">
+        Không tải được dữ liệu<br><br>
+        ${error}
+    </div>
+    `;
+
+    console.error(error);
 
 });
 
