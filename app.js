@@ -1,8 +1,12 @@
 let ALL_PRODUCTS = [];
 let CURRENT_FILTER = "ALL";
 
-function money(v){
-return Number(v || 0).toLocaleString("vi-VN");
+function money(value){
+
+return Number(
+value || 0
+).toLocaleString("vi-VN");
+
 }
 
 function renderProducts(){
@@ -10,25 +14,36 @@ function renderProducts(){
 const container =
 document.getElementById("products");
 
+if(!container) return;
+
 let products = [...ALL_PRODUCTS];
 
 if(CURRENT_FILTER === "HOT"){
+
 products =
-products.filter(p => p.hot);
+products.filter(
+p => p.hot === true
+);
+
 }
 
 else if(CURRENT_FILTER !== "ALL"){
 
 products =
-products.filter(p =>
-(p.brand || "")
+products.filter(product =>
+
+(product.brand || "")
 .toUpperCase()
-.includes(CURRENT_FILTER)
+.includes(
+CURRENT_FILTER
+)
+
 );
 
 }
 
 container.innerHTML =
+
 products.map(product => `
 
 <div class="card">
@@ -36,14 +51,21 @@ products.map(product => `
 <div class="image-wrap">
 
 ${product.hot
-? '<div class="badge">HOT</div>'
-: ''}
+? `
+<div class="badge">
+🔥 HOT
+</div>
+`
+: ""
+}
 
 <img
-src="${product.image_url || ''}"
+src="${product.image_url || ""}"
+alt="${product.product_name || ""}"
 loading="lazy"
-onerror="this.src='https://placehold.co/600x600?text=No+Image'"
-
+onerror="
+this.src='https://placehold.co/600x600?text=NO+IMAGE'
+"
 >
 
 </div>
@@ -51,31 +73,46 @@ onerror="this.src='https://placehold.co/600x600?text=No+Image'"
 <div class="card-content">
 
 <div class="brand">
-${product.brand || ''}
+
+${product.brand || ""}
+
 </div>
 
 <div class="name">
-${product.product_name || ''}
+
+${product.product_name || ""}
+
 </div>
 
 <div class="old-price">
-${money(product.original_price)}đ
+
+${money(
+product.original_price
+)}đ
+
 </div>
 
 <div class="sale-price">
-${money(product.sale_price)}đ
+
+${money(
+product.sale_price
+)}đ
+
 </div>
 
 <div class="stock">
-${product.stock_text || ''}
+
+${product.stock_text || ""}
+
 </div>
 
 <a
 class="buy-btn"
-href="${product.affiliate_link || '#'}"
-target="_blank">
+href="${product.affiliate_link || "#"}"
+target="_blank"
+>
 
-XEM GIÁ ĐÁY
+🛒 XEM GIÁ ĐÁY
 
 </a>
 
@@ -93,37 +130,66 @@ try{
 
 const response =
 await fetch(
-"./data/data.json?t=" +
+"./data/data.json?t="+
 Date.now()
 );
+
+if(!response.ok){
+
+throw new Error(
+"Không tải được data.json"
+);
+
+}
 
 const data =
 await response.json();
 
 const config = {};
+
 (data.CONFIG || [])
-.forEach(i => {
-config[i.key] = i.value;
+.forEach(item => {
+
+config[item.key] =
+item.value;
+
 });
 
 const event = {};
+
 (data.EVENT || [])
-.forEach(i => {
-event[i.key] = i.value;
+.forEach(item => {
+
+event[item.key] =
+item.value;
+
 });
 
 ALL_PRODUCTS =
 (data.PRODUCTS || [])
-.filter(p => p.active);
+.filter(
+p => p.active === true
+);
 
 const brands =
+
 [
 ...new Set(
+
 ALL_PRODUCTS.map(
-p => (p.brand || "").toUpperCase()
+p =>
+(p.brand || "")
+.toUpperCase()
 )
+
 )
-].filter(Boolean);
+]
+
+.filter(Boolean);
+
+document.title =
+config.page_title ||
+"Mạnh Hà Mê Chơi Đồ";
 
 document.getElementById("app")
 .innerHTML = `
@@ -132,24 +198,45 @@ document.getElementById("app")
 
 <div class="logo">
 
-<h1>
-${config.page_title || "Mạnh Hà Mê Chơi Đồ"}
-</h1>
-
-<p>
-TRẠM DEAL GIÁ ĐÁY
-</p>
-
+<div class="logo-mark">
+🤖
 </div>
 
 <div>
 
+<h1>
+
+${config.page_title ||
+"Mạnh Hà Mê Chơi Đồ"}
+
+</h1>
+
+<p>
+
+TRẠM DEAL GIÁ ĐÁY
+
+</p>
+
+</div>
+
+</div>
+
+<div class="header-actions">
+
 <a
 class="icon-btn"
-href="https://${config.zalo_link || ''}"
+href="https://${config.zalo_link}"
 target="_blank">
 
 💬
+
+</a>
+
+<a
+class="icon-btn"
+href="#">
+
+🛒
 
 </a>
 
@@ -162,19 +249,24 @@ target="_blank">
 <div class="hero-box">
 
 <div class="hero-title">
-${event.hero_title || ''}
+
+${event.hero_title || ""}
+
 </div>
 
 <div class="hero-sub">
-${event.hero_subtitle || ''}
+
+${event.hero_subtitle || ""}
+
 </div>
 
 <a
 class="hero-btn"
-href="${event.form_link || '#'}"
+href="${event.form_link || "#"}"
 target="_blank">
 
-${event.button_text || 'THAM GIA'}
+🎁
+${event.button_text || ""}
 
 </a>
 
@@ -182,13 +274,15 @@ ${event.button_text || 'THAM GIA'}
 
 </section>
 
-<div class="tabs" id="tabs">
+<div
+class="tabs"
+id="tabs">
 
 <button
 class="tab active"
 data-filter="ALL">
 
-TẤT CẢ
+🔥 TRENDING
 
 </button>
 
@@ -196,7 +290,7 @@ TẤT CẢ
 class="tab"
 data-filter="HOT">
 
-SP HOT
+🚨 SP HOT
 
 </button>
 
@@ -232,11 +326,16 @@ tab.onclick = () => {
 
 document
 .querySelectorAll(".tab")
-.forEach(t =>
-t.classList.remove("active")
+.forEach(
+t =>
+t.classList.remove(
+"active"
+)
 );
 
-tab.classList.add("active");
+tab.classList.add(
+"active"
+);
 
 CURRENT_FILTER =
 tab.dataset.filter;
@@ -250,23 +349,28 @@ renderProducts();
 }
 catch(error){
 
+console.error(error);
+
 document.body.innerHTML = `
 
-<div style="
+<div
+style="
 padding:20px;
 color:white;
 font-family:Arial;
 ">
 
-<h2>Lỗi tải dữ liệu</h2>
+<h2>
+Lỗi tải dữ liệu
+</h2>
 
-<p>${error.message}</p>
+<p>
+${error.message}
+</p>
 
 </div>
 
 `;
-
-console.error(error);
 
 }
 
