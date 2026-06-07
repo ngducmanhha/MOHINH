@@ -1,26 +1,60 @@
-body{
-    font-family: Arial;
-    padding:20px;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-#products{
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+}
+
+header{
+    background:#ffcc00;
+    padding:20px;
+    text-align:center;
+}
+
+.product-grid{
+    max-width:1200px;
+    margin:20px auto;
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
     gap:20px;
+    padding:20px;
 }
 
 .card{
-    border:1px solid #ddd;
-    padding:15px;
-    border-radius:10px;
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
 
 .card img{
     width:100%;
+    height:250px;
+    object-fit:cover;
+}
+
+.card-body{
+    padding:15px;
 }
 
 .price{
     color:red;
     font-size:22px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.buy-btn{
+    display:block;
+    text-align:center;
+    background:#ffcc00;
+    color:black;
+    text-decoration:none;
+    padding:10px;
+    border-radius:8px;
     font-weight:bold;
 }
