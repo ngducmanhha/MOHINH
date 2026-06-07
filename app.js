@@ -91,7 +91,24 @@ p => p.featured === true
 );
 
 }
+else if(CURRENT_FILTER === "LOWSTOCK"){
 
+products =
+products.filter(product => {
+
+const text =
+(product.stock_text || "")
+.toUpperCase();
+
+return (
+text.includes("CHÁY") ||
+text.includes("SAP CHAY") ||
+text.includes("SẮP CHÁY")
+);
+
+});
+
+}
 else if(CURRENT_FILTER === "HOT"){
 
 products =
@@ -193,9 +210,6 @@ ${money(product.original_price)}đ
 ${product.sale_price || ""}
 </div>
 
-<div class="stock">
-${product.stock_text || ""}
-</div>
 
 <div class="buy-btn">
 
@@ -353,18 +367,18 @@ placeholder="🔍 Tìm tên sản phẩm...">
 <div class="tabs">
 
 <button
-class="tab active"
-data-filter="ALL">
+class="tab"
+data-filter="FEATURED">
 
-⭐ TẤT CẢ
+💥 GIẢM SỐC
 
 </button>
 
 <button
 class="tab"
-data-filter="FEATURED">
+data-filter="LOWSTOCK">
 
-💥 GIẢM SỐC
+🚨 SẮP CHÁY HÀNG
 
 </button>
 
