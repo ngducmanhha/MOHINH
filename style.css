@@ -248,6 +248,19 @@ min-height:38px;
 text-transform:uppercase;
 }
 
+.description{
+font-size:12px;
+font-weight:500;
+color:#bfc5d1;
+margin-top:6px;
+line-height:1.3;
+min-height:32px;
+overflow:hidden;
+display:-webkit-box;
+-webkit-line-clamp:2;
+-webkit-box-orient:vertical;
+}
+
 .old-price{
 margin-top:8px;
 font-size:13px;
