@@ -190,7 +190,7 @@ ${money(product.original_price)}đ
 </div>
 
 <div class="sale-price">
-${money(product.sale_price)}đ
+${product.sale_price || ""}
 </div>
 
 <div class="stock">
