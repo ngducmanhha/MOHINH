@@ -1,204 +1,165 @@
-async function loadSite() {
+async function loadSite(){
 
-    try {
+    const response =
+        await fetch("./data/data.json");
 
-        const response = await fetch("./data/data.json?t=" + Date.now());
+    const data =
+        await response.json();
 
-        if (!response.ok) {
-            throw new Error(
-                "Không tải được data.json"
-            );
-        }
+    const config = {};
 
-        const data = await response.json();
+    data.CONFIG.forEach(item=>{
+        config[item.key]=item.value;
+    });
 
-        const CONFIG = Array.isArray(data.CONFIG)
-            ? data.CONFIG
-            : [];
+    const event = {};
 
-        const EVENT = Array.isArray(data.EVENT)
-            ? data.EVENT
-            : [];
+    data.EVENT.forEach(item=>{
+        event[item.key]=item.value;
+    });
 
-        const PRODUCTS = Array.isArray(data.PRODUCTS)
-            ? data.PRODUCTS
-            : [];
+    document.title =
+        config.page_title;
 
-        const config = {};
-        CONFIG.forEach(item => {
-            config[item.key] = item.value;
-        });
-
-        const event = {};
-        EVENT.forEach(item => {
-            event[item.key] = item.value;
-        });
-
-        document.title =
-            config.page_title ||
-            "Mạnh Hà Mê Chơi Đồ";
-
-        const products = PRODUCTS.filter(
-            p => p.active === true ||
-                 p.active === "TRUE" ||
-                 p.active === "true" ||
-                 p.active === 1
+    const products =
+        data.PRODUCTS.filter(
+            p=>p.active
         );
 
-        const heroHTML = `
-        <section class="hero">
+    const html = `
 
-            <div class="hero-card">
+    <section class="hero">
 
-                <h1 class="hero-title">
-                    ${config.page_title || ""}
-                </h1>
+        <div class="hero-card">
 
-                <p class="hero-sub">
-                    ${event.hero_title || ""}
-                </p>
+            <h1 class="hero-title">
+                ${config.page_title}
+            </h1>
 
-                <p class="hero-sub">
-                    ${event.hero_subtitle || ""}
-                </p>
+            <p class="hero-sub">
+                ${event.hero_title}
+            </p>
 
-                <a
-                    href="${event.form_link || "#"}"
-                    target="_blank"
-                    class="hero-btn">
+            <p class="hero-sub">
+                ${event.hero_subtitle}
+            </p>
 
-                    ${event.button_text || "THAM GIA"}
+            <a
+                href="${event.form_link}"
+                target="_blank"
+                class="hero-btn">
 
-                </a>
+                ${event.button_text}
 
-            </div>
+            </a>
 
-        </section>
-        `;
+        </div>
 
-        let productHTML = "";
+    </section>
 
-        products.forEach(product => {
+    <section class="section">
 
-            const originalPrice =
-                Number(product.original_price || 0);
+        <div class="section-title">
+            Deal hôm nay
+        </div>
 
-            const salePrice =
-                Number(product.sale_price || 0);
+        <div class="filter-row">
 
-            productHTML += `
+            <button
+                class="filter-btn active">
 
-            <div class="card">
+                Trending
 
-                <div class="card-image">
+            </button>
 
-                    ${product.hot ? `
-                    <div class="badge">
-                        HOT
+            <button
+                class="filter-btn">
+
+                Giá đáy
+
+            </button>
+
+            <button
+                class="filter-btn">
+
+                IN ERA
+
+            </button>
+
+        </div>
+
+        <div class="products">
+
+            ${products.map(product=>`
+
+                <div class="card">
+
+                    <div class="card-image">
+
+                        ${
+                            product.hot
+                            ? `<div class="badge">
+                                HOT
+                               </div>`
+                            : ""
+                        }
+
+                        <img
+                          src="${product.image_url}"
+                        >
+
                     </div>
-                    ` : ""}
 
-                    <img
-                        loading="lazy"
-                        src="${product.image_url || ""}"
-                        alt="${product.product_name || ""}"
-                        onerror="this.src='https://placehold.co/600x600?text=No+Image'"
-                    >
+                    <div class="card-content">
+
+                        <div class="brand">
+                            ${product.brand}
+                        </div>
+
+                        <div class="product-name">
+                            ${product.product_name}
+                        </div>
+
+                        <div class="old-price">
+                            ${Number(
+                              product.original_price
+                            ).toLocaleString()}đ
+                        </div>
+
+                        <div class="sale-price">
+                            ${Number(
+                              product.sale_price
+                            ).toLocaleString()}đ
+                        </div>
+
+                        <div class="stock">
+                            ${product.stock_text}
+                        </div>
+
+                        <a
+                           href="${product.affiliate_link}"
+                           target="_blank"
+                           class="buy-btn">
+
+                           XEM GIÁ ĐÁY
+
+                        </a>
+
+                    </div>
 
                 </div>
 
-                <div class="card-content">
+            `).join("")}
 
-                    <div class="brand">
-                        ${product.brand || ""}
-                    </div>
+        </div>
 
-                    <div class="product-name">
-                        ${product.product_name || ""}
-                    </div>
+    </section>
 
-                    <div class="old-price">
-                        ${originalPrice.toLocaleString()}đ
-                    </div>
+    `;
 
-                    <div class="sale-price">
-                        ${salePrice.toLocaleString()}đ
-                    </div>
-
-                    <div class="stock">
-                        ${product.stock_text || ""}
-                    </div>
-
-                    <a
-                        class="buy-btn"
-                        href="${product.affiliate_link || "#"}"
-                        target="_blank">
-
-                        XEM GIÁ ĐÁY
-
-                    </a>
-
-                </div>
-
-            </div>
-            `;
-
-        });
-
-        const pageHTML = `
-            ${heroHTML}
-
-            <section class="section">
-
-                <div class="section-title">
-                    Deal hôm nay
-                </div>
-
-                <div class="products">
-                    ${productHTML}
-                </div>
-
-            </section>
-        `;
-
-        const app =
-            document.getElementById("app");
-
-        if (!app) {
-            throw new Error(
-                "Không tìm thấy #app"
-            );
-        }
-
-        app.innerHTML = pageHTML;
-
-    }
-    catch(error){
-
-        console.error(error);
-
-        document.body.innerHTML = `
-            <div style="
-                padding:20px;
-                font-family:Arial;
-                max-width:600px;
-                margin:auto;
-            ">
-
-                <h2>Lỗi tải website</h2>
-
-                <p>
-                    ${error.message}
-                </p>
-
-            </div>
-        `;
-
-    }
+    document.getElementById("app")
+        .innerHTML = html;
 
 }
 
-document.addEventListener(
-    "DOMContentLoaded",
-    loadSite
-);
+loadSite();
