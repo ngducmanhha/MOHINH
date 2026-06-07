@@ -97,7 +97,12 @@ ${product.brand || ""}
 </div>
 
 <div class="name">
+<div class="name">
 ${product.product_name || ""}
+</div>
+
+<div class="description">
+${product.description || ""}
 </div>
 
 <div class="old-price">
