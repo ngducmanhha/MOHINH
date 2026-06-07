@@ -1,14 +1,16 @@
-async function loadProducts(){
+async function loadData(){
 
-    const response = await fetch("./data/data.json");
+    const response =
+        await fetch("./data/data.json");
 
-    const data = await response.json();
+    const data =
+        await response.json();
 
-    const productsContainer =
-        document.getElementById("products");
+    const products =
+        data.PRODUCTS || [];
 
-    productsContainer.innerHTML =
-        data.PRODUCTS.map(product => `
+    document.getElementById("products")
+        .innerHTML = products.map(product => `
 
         <div class="card">
 
@@ -21,13 +23,14 @@ async function loadProducts(){
                 <p>${product.brand}</p>
 
                 <div class="price">
-                    ${Number(product.sale_price).toLocaleString()}đ
+                    ${Number(product.sale_price)
+                      .toLocaleString()}đ
                 </div>
 
                 <a
-                    class="buy-btn"
                     href="${product.affiliate_link}"
-                    target="_blank">
+                    target="_blank"
+                    class="buy-btn">
 
                     XEM GIÁ
 
@@ -41,4 +44,4 @@ async function loadProducts(){
 
 }
 
-loadProducts();
+loadData();
