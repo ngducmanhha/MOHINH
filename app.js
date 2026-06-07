@@ -14,8 +14,85 @@ document.getElementById("products");
 if(!container) return;
 
 let products = [...ALL_PRODUCTS];
+if(CURRENT_FILTER === "ALL"){
 
-if(CURRENT_FILTER === "HOT"){
+products.sort((a,b)=>{
+
+const score = (product)=>{
+
+if(product.featured) return 300;
+
+if(product.hot) return 200;
+
+const brand =
+(product.brand || "")
+.toUpperCase();
+
+if(
+brand === "KHÁC" ||
+brand === "KHAC"
+){
+return 0;
+}
+
+return 100;
+
+};
+
+const scoreA = score(a);
+const scoreB = score(b);
+
+if(scoreA !== scoreB){
+
+return scoreB - scoreA;
+
+}
+
+const brandA =
+(a.brand || "")
+.toUpperCase();
+
+const brandB =
+(b.brand || "")
+.toUpperCase();
+
+if(
+brandA === "KHÁC" ||
+brandA === "KHAC"
+){
+
+return 1;
+
+}
+
+if(
+brandB === "KHÁC" ||
+brandB === "KHAC"
+){
+
+return -1;
+
+}
+
+return brandA.localeCompare(
+brandB,
+"vi"
+);
+
+});
+
+}
+  
+if(CURRENT_FILTER === "FEATURED"){
+
+products =
+products.filter(
+p => p.featured === true
+);
+
+}
+
+else if(CURRENT_FILTER === "HOT"){
 
 products =
 products.filter(
@@ -25,7 +102,6 @@ p => p.hot === true
 }
 
 else if(CURRENT_FILTER === "PREORDER"){
-
 products =
 products.filter(product => {
 
@@ -122,7 +198,25 @@ class="buy-btn"
 href="${product.affiliate_link || "#"}"
 target="_blank">
 
-🛒 XEM GIÁ ĐÁY
+${(() => {
+
+const text =
+(product.stock_text || "")
+.toUpperCase();
+
+const isPreOrder =
+
+text.includes("PRE")
+||
+text.includes("ORDER")
+||
+text.includes("ĐẶT");
+
+return isPreOrder
+? "📦 GIỮ SUẤT NGAY"
+: "🛒 XEM GIÁ ĐÁY";
+
+})()}
 
 </a>
 
@@ -259,7 +353,15 @@ placeholder="🔍 Tìm tên sản phẩm...">
 class="tab active"
 data-filter="ALL">
 
-🔥 TRENDING
+⭐ TẤT CẢ
+
+</button>
+
+<button
+class="tab"
+data-filter="FEATURED">
+
+💥 GIẢM SỐC
 
 </button>
 
@@ -267,7 +369,7 @@ data-filter="ALL">
 class="tab"
 data-filter="HOT">
 
-🚨 SP HOT
+🔥 ĐANG HOT
 
 </button>
 
