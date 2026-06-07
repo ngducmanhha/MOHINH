@@ -237,16 +237,43 @@ display:block;
 }
 
 .badge{
+
 position:absolute;
+
 top:8px;
 left:8px;
-background:black;
-border:2px solid var(--yellow);
-color:var(--yellow);
-font-size:11px;
-font-weight:900;
+
 padding:5px 8px;
+
 border-radius:999px;
+
+font-size:10px;
+
+font-weight:900;
+
+z-index:5;
+
+}
+.badge-new{
+
+background:#00c853;
+
+color:white;
+
+}
+.badge-low{
+
+background:#ff3d00;
+
+color:white;
+
+}
+.badge-hot{
+
+background:#ffcc00;
+
+color:black;
+
 }
 
 .card-content{
