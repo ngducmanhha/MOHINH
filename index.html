@@ -1,2 +1,19 @@
-fetch(https://sheetdb.io/api/v1/t13pc064b9hcm)
-forEach(product)
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mạnh Hà Mê Chơi Đồ</title>
+</head>
+<body>
+
+<div id="products"></div>
+
+<script>
+fetch("https://sheetdb.io/api/v1/t13pc064b9hcm")
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+});
+</script>
+
+</body>
+</html>
