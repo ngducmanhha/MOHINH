@@ -24,7 +24,7 @@ text-decoration:none;
 }
 
 .header{
-padding:3px;
+padding:12px;
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -244,10 +244,12 @@ font-size:16px;
 font-weight:900;
 line-height:1.1;
 margin-top:6px;
+min-height:38px;
 text-transform:uppercase;
 }
 
 .old-price{
+margin-top:8px;
 font-size:13px;
 font-weight:700;
 color:#d1d5db;
