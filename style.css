@@ -161,48 +161,45 @@ border:1px solid rgba(255,255,255,.08);
 color:#8b95a7;
 }
 
+.tabs{
+
+display:grid;
+
+grid-template-rows:repeat(2,auto);
+
+grid-auto-flow:column;
+
+gap:6px;
+
+padding:0 12px 14px;
+
+justify-content:start;
+
+}
 .tab{
 
-height:44px;
+background:#252b36;
 
-display:flex;
+border:none;
 
-align-items:center;
+color:white;
 
-justify-content:center;
+padding:6px 10px;
 
-text-align:center;
+border-radius:999px;
 
-padding:0 8px;
+font-size:11px;
 
-font-size:12px;
+font-weight:700;
 
-font-weight:800;
+cursor:pointer;
 
-border-radius:12px;
+white-space:nowrap;
 
 }
 
 .tabs::-webkit-scrollbar{
 display:none;
-}
-.tabs{
-display:grid;
-grid-template-columns:
-repeat(2,1fr);
-gap:8px;
-padding:0 12px 14px;
-}
-.tab{
-background:#252b36;
-border:none;
-color:white;
-padding:10px 14px;
-border-radius:999px;
-white-space:nowrap;
-font-size:13px;
-font-weight:700;
-cursor:pointer;
 }
 
 .tab.active{
