@@ -1,53 +1,105 @@
 async function loadSite(){
 
+```
+try{
+
     const response =
-        await fetch("./data/data.json");
+    await fetch(
+        "./data/data.json?t="+Date.now()
+    );
 
     const data =
-        await response.json();
+    await response.json();
 
     const config = {};
 
     data.CONFIG.forEach(item=>{
-        config[item.key]=item.value;
+
+        config[item.key] =
+        item.value;
+
     });
 
     const event = {};
 
     data.EVENT.forEach(item=>{
-        event[item.key]=item.value;
+
+        event[item.key] =
+        item.value;
+
     });
 
-    document.title =
-        config.page_title;
+    let products =
+    data.PRODUCTS || [];
 
-    const products =
-        data.PRODUCTS.filter(
-            p=>p.active
-        );
+    products =
+    products.filter(
+        p => p.active === true
+    );
 
     const html = `
 
-    <section class="hero">
+    <header class="header">
 
-        <div class="hero-card">
+        <div>
 
-            <h1 class="hero-title">
+            <div class="logo-title">
+
                 ${config.page_title}
-            </h1>
 
-            <p class="hero-sub">
-                ${event.hero_title}
-            </p>
+            </div>
 
-            <p class="hero-sub">
-                ${event.hero_subtitle}
-            </p>
+            <div class="logo-sub">
+
+                TRẠM DEAL GIÁ ĐÁY
+
+            </div>
+
+        </div>
+
+        <div class="header-links">
 
             <a
-                href="${event.form_link}"
-                target="_blank"
-                class="hero-btn">
+            class="header-link"
+            href="https://${config.zalo_link}"
+            target="_blank">
+
+            💬
+
+            </a>
+
+            <a
+            class="header-link"
+            href="#">
+
+            🛒
+
+            </a>
+
+        </div>
+
+    </header>
+
+    <section class="hero">
+
+        <div class="hero-box">
+
+            <div class="hero-title">
+
+                ${event.hero_title}
+
+            </div>
+
+            <div class="hero-sub">
+
+                ${event.hero_subtitle}
+
+            </div>
+
+            <a
+            class="hero-btn"
+            href="${event.form_link}"
+            target="_blank">
 
                 ${event.button_text}
 
@@ -57,109 +109,131 @@ async function loadSite(){
 
     </section>
 
-    <section class="section">
+    <div class="tabs">
 
-        <div class="section-title">
-            Deal hôm nay
-        </div>
+        <button class="tab active">
+            DEAL SỐC
+        </button>
 
-        <div class="filter-row">
+        <button class="tab">
+            SP HOT
+        </button>
 
-            <button
-                class="filter-btn active">
+        <button class="tab">
+            PRE-ORDER
+        </button>
 
-                Trending
+        <button class="tab">
+            IN ERA
+        </button>
 
-            </button>
+        <button class="tab">
+            MOTOR NUCLEAR
+        </button>
 
-            <button
-                class="filter-btn">
+        <button class="tab">
+            SNAA
+        </button>
 
-                Giá đáy
+    </div>
 
-            </button>
+    <section class="products">
 
-            <button
-                class="filter-btn">
+    ${products.map(product=>`
 
-                IN ERA
+        <div class="card">
 
-            </button>
+            <div class="image-wrap">
 
-        </div>
+                ${
+                product.hot
+                ?
+                `<div class="badge">
+                HOT
+                </div>`
+                :
+                ""
+                }
 
-        <div class="products">
+                <img
+                src="${product.image_url}"
+                loading="lazy">
 
-            ${products.map(product=>`
+            </div>
 
-                <div class="card">
+            <div class="card-content">
 
-                    <div class="card-image">
+                <div class="brand">
 
-                        ${
-                            product.hot
-                            ? `<div class="badge">
-                                HOT
-                               </div>`
-                            : ""
-                        }
-
-                        <img
-                          src="${product.image_url}"
-                        >
-
-                    </div>
-
-                    <div class="card-content">
-
-                        <div class="brand">
-                            ${product.brand}
-                        </div>
-
-                        <div class="product-name">
-                            ${product.product_name}
-                        </div>
-
-                        <div class="old-price">
-                            ${Number(
-                              product.original_price
-                            ).toLocaleString()}đ
-                        </div>
-
-                        <div class="sale-price">
-                            ${Number(
-                              product.sale_price
-                            ).toLocaleString()}đ
-                        </div>
-
-                        <div class="stock">
-                            ${product.stock_text}
-                        </div>
-
-                        <a
-                           href="${product.affiliate_link}"
-                           target="_blank"
-                           class="buy-btn">
-
-                           XEM GIÁ ĐÁY
-
-                        </a>
-
-                    </div>
+                    ${product.brand}
 
                 </div>
 
-            `).join("")}
+                <div class="name">
+
+                    ${product.product_name}
+
+                </div>
+
+                <div class="old-price">
+
+                    ${Number(
+                    product.original_price || 0
+                    ).toLocaleString()}đ
+
+                </div>
+
+                <div class="sale-price">
+
+                    ${Number(
+                    product.sale_price || 0
+                    ).toLocaleString()}đ
+
+                </div>
+
+                <div class="stock">
+
+                    ${product.stock_text || ""}
+
+                </div>
+
+                <a
+                class="buy-btn"
+                href="${product.affiliate_link}"
+                target="_blank">
+
+                XEM GIÁ ĐÁY
+
+                </a>
+
+            </div>
 
         </div>
+
+    `).join("")}
 
     </section>
 
     `;
 
-    document.getElementById("app")
-        .innerHTML = html;
+    document
+    .getElementById("app")
+    .innerHTML = html;
+
+}
+catch(error){
+
+    document.body.innerHTML =
+    `<div style="padding:20px">
+        ${error.message}
+    </div>`;
+
+}
+```
 
 }
 
-loadSite();
+document.addEventListener(
+"DOMContentLoaded",
+loadSite
+);
