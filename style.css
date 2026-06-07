@@ -235,15 +235,25 @@ flex-direction:column;
 height:100%;
 }
 
+
 .image-wrap{
-position:relative;
+
+aspect-ratio:1/1;
+
+overflow:hidden;
+
 }
 
 .card img{
+
 width:100%;
-aspect-ratio:1/1;
+
+height:100%;
+
 object-fit:cover;
-display:block;
+
+object-position:center;
+
 }
 
 .badge{
