@@ -186,7 +186,13 @@ border-radius:12px;
 .tabs::-webkit-scrollbar{
 display:none;
 }
-
+.tabs{
+display:grid;
+grid-template-columns:
+repeat(2,1fr);
+gap:8px;
+padding:0 12px 14px;
+}
 .tab{
 background:#252b36;
 border:none;
