@@ -403,7 +403,19 @@ font-size:22px;
 font-weight:900;
 color:var(--yellow);
 }
+.price-label{
 
+font-size:7px;
+
+font-weight:400;
+
+color:#8b95a7;
+
+position:relative;
+
+top:-2px;
+
+}
 .stock{
 margin-top:6px;
 font-size:12px;
