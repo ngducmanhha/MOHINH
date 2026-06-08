@@ -405,11 +405,11 @@ color:var(--yellow);
 }
 .price-label{
 
-font-size:7px;
+font-size:10px;
 
 font-weight:400;
 
-color:#8b95a7;
+color:var(--yellow);
 
 position:relative;
 
