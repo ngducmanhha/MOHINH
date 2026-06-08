@@ -468,6 +468,10 @@ ${brand}
 
 </div>
 
+<div class="price-note">
+GIÁ THỰC TẾ ĐÔI KHI CÒN THẤP HƠN, ĐẶC BIỆT KHI CÓ XU HOẶC VIP
+</div>
+
 <section
 class="products"
 id="products">
