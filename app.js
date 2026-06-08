@@ -249,9 +249,10 @@ text.includes("ORDER")
 ||
 text.includes("ĐẶT");
 
-return isPreOrder
-? `${product.sale_price}`
-: `<span class="price-label">Khoảng </span>${product.sale_price}`;
+return `
+${!isPreOrder ? '<span class="price-label">Khoảng</span>' : ''}
+${product.sale_price}
+`;
 
 })()}
 
