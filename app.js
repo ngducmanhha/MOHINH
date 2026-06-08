@@ -220,9 +220,14 @@ ${product.brand || ""}
 ${product.product_name || ""}
 </div>
 
+${product.description
+? `
 <div class="description">
-${product.description || ""}
+${product.description}
 </div>
+`
+: ""
+}
 
 <div class="old-price">
 ${money(product.original_price)}đ
