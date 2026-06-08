@@ -234,7 +234,27 @@ ${money(product.original_price)}đ
 </div>
 
 <div class="sale-price">
-${product.sale_price || ""}
+
+${(() => {
+
+const text =
+(product.stock_text || "")
+.toUpperCase();
+
+const isPreOrder =
+
+text.includes("PRE")
+||
+text.includes("ORDER")
+||
+text.includes("ĐẶT");
+
+return isPreOrder
+? `${product.sale_price}`
+: `<span class="price-label">Khoảng </span>${product.sale_price}`;
+
+})()}
+
 </div>
 
 
