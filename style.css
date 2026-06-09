@@ -186,6 +186,54 @@ border:1px solid rgba(255,255,255,.08);
 color:#8b95a7;
 }
 
+.site-nav{
+
+display:flex;
+
+gap:6px;
+
+overflow-x:auto;
+
+padding:0 12px 12px;
+
+scrollbar-width:none;
+
+-webkit-overflow-scrolling:touch;
+
+}
+
+.site-nav::-webkit-scrollbar{
+display:none;
+}
+
+.site-nav a{
+
+background:#111827;
+
+color:#fff;
+
+padding:8px 12px;
+
+border-radius:999px;
+
+font-size:12px;
+
+font-weight:800;
+
+white-space:nowrap;
+
+flex-shrink:0;
+
+}
+
+.site-nav .active-page{
+
+background:var(--yellow);
+
+color:#000;
+
+}
+
 .tabs{
 
 display:grid;
