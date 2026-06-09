@@ -316,7 +316,7 @@ event[item.key]=item.value;
 });
 
 ALL_PRODUCTS =
-(data.PRODUCTS || [])
+(data.PHUKIEN || [])
 .filter(p=>p.active===true);
 
 const brands =
