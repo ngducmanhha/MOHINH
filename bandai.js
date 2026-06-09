@@ -414,39 +414,28 @@ placeholder="🔍 Tìm tên sản phẩm...">
 
 <nav class="site-nav">
 
-<a class="active-page"
-href="index.html">
-
+<a href="index.html">
 KIT TRUNG
-
 </a>
 
-<a href="bandai.html">
-
+<a class="active-page"
+href="bandai.html">
 BANDAI
-
 </a>
 
 <a href="phukien.html">
-
 PHỤ KIỆN
-
 </a>
 
 <a href="voucher.html">
-
 MÃ GIẢM GIÁ
-
 </a>
 
 <a href="guide.html">
-
 HƯỚNG DẪN
-
 </a>
 
 </nav>
-
 <div class="tabs">
 
 <button
