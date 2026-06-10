@@ -444,7 +444,9 @@ MÃ GIẢM GIÁ
 HƯỚNG DẪN
 
 </a>
+<a href="gioithieu.html">GIỚI THIỆU</a>
 
+<a href="chinhsach.html">CHÍNH SÁCH</a>
 </nav>
 
 <div class="tabs">
