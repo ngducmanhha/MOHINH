@@ -422,11 +422,9 @@ placeholder="🔍 Tìm tên sản phẩm...">
 href="phukien.html">
 PHỤ KIỆN
 </a>
-
-
-
 <a href="guide.html">HƯỚNG DẪN</a>
-
+<a href="gioithieu.html">GIỚI THIỆU</a>
+<a href="chinhsach.html">CHÍNH SÁCH</a>
 </nav>
 
 <div class="tabs">
