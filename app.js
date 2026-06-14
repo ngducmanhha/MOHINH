@@ -421,11 +421,7 @@ KIT TRUNG
 
 </a>
 
-<a href="bandai.html">
 
-BANDAI
-
-</a>
 
 <a href="phukien.html">
 
@@ -433,11 +429,6 @@ PHỤ KIỆN
 
 </a>
 
-<a href="voucher.html">
-
-MÃ GIẢM GIÁ
-
-</a>
 
 <a href="guide.html">
 
