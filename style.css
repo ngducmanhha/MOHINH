@@ -558,44 +558,43 @@ display:block;
 
 }
 
-.badge{
-
-position:absolute;
-
-top:8px;
-left:8px;
-
-padding:5px 8px;
-
-border-radius:999px;
-
-font-size:10px;
-
-font-weight:900;
-
-z-index:5;
-
+.badge-code{
+  background:#f97316;
+  color:#fff;
 }
+
+.badge-hunt{
+  background:#16a34a;
+  color:#fff;
+}
+
 .badge-new{
-
-background:#00c853;
-
-color:white;
-
+  background:#ffcc00;
+  color:#111;
 }
-.badge-low{
 
-background:#ff3d00;
-
-color:white;
-
+.badge-preorder{
+  background:#2563eb;
+  color:#fff;
 }
-.badge-hot{
 
-background:#ffcc00;
+.badge-low-stock{
+  position:absolute;
+  right:6px;
+  bottom:6px;
+  top:auto;
+  left:auto;
 
-color:black;
+  background:#dc2626;
+  color:#fff;
 
+  font-size:10px;
+  font-weight:800;
+
+  padding:4px 7px;
+  border-radius:6px;
+
+  z-index:3;
 }
 
 .card-content{
