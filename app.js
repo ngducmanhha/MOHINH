@@ -349,11 +349,11 @@ alt="logo">
 <div class="logo-text">
 
 <h1>
-${config.page_title || ""}
+TRẠM DEAL GIÁ ĐÁY
 </h1>
 
 <p>
-TRẠM DEAL GIÁ ĐÁY
+${config.page_title || ""}
 </p>
 
 </div>
