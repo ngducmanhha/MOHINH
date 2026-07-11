@@ -558,6 +558,10 @@ display:block;
 
 }
 
+.image-wrap .badge{
+  position:absolute;
+  z-index:10;
+
 .badge-code{
   background:#f97316;
   color:#fff;
