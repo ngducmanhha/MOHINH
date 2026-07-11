@@ -10,7 +10,7 @@ async function loadSite(){
       ${renderFilters()}
 
       <div class="price-note">
-        GIÁ THỰC TẾ ĐÔI KHI CÒN THẤP HƠN SAU KHI ÁP ĐẦY ĐỦ VOUCHER
+        HÃY CHỌN VOUCHER TỐT NHẤT TRONG MỤC "SHOPEE VOUCHER"
       </div>
 
       <section class="products" id="products"></section>
