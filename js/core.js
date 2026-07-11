@@ -25,13 +25,18 @@ function isLowStock(product){
 
 function rowsToObject(rows){
   const result={};
-  (rows||[]).forEach(item=>result[item.key]=item.value);
+  (rows||[]).forEach(item=>{
+    result[item.key]=item.value;
+  });
   return result;
 }
 
 async function loadData(){
   const response=await fetch("./data/data.json?t="+Date.now());
-  if(!response.ok) throw new Error("Không thể tải data.json");
+
+  if(!response.ok){
+    throw new Error("Không thể tải data.json");
+  }
 
   SITE_DATA=await response.json();
   SITE_CONFIG=rowsToObject(SITE_DATA.CONFIG);
@@ -43,7 +48,13 @@ async function loadData(){
 
 function showLoadError(error){
   document.body.innerHTML=`
-    <div style="padding:20px;color:white;background:#05070d;min-height:100vh;font-family:Arial">
+    <div style="
+      padding:20px;
+      color:white;
+      background:#05070d;
+      min-height:100vh;
+      font-family:Arial;
+    ">
       <h2>Lỗi tải dữ liệu</h2>
       <p>${error.message}</p>
     </div>

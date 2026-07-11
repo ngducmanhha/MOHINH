@@ -1,13 +1,22 @@
+const PAGE_CONFIG={
+  page:"GUIDE",
+  sheet:"GUIDE"
+};
+
 async function loadGuidePage(){
   try{
     const response=await fetch("./data/data.json?t="+Date.now());
-    if(!response.ok) throw new Error("Không thể tải data.json");
+
+    if(!response.ok){
+      throw new Error("Không thể tải data.json");
+    }
 
     SITE_DATA=await response.json();
     SITE_CONFIG=rowsToObject(SITE_DATA.CONFIG);
     SITE_EVENT=rowsToObject(SITE_DATA.EVENT);
 
-    const guides=(SITE_DATA.GUIDE||[]).filter(item=>item.active===true);
+    const guides=(SITE_DATA.GUIDE||[])
+      .filter(item=>item.active===true);
 
     document.getElementById("app").innerHTML=`
       ${renderHeader()}
@@ -20,9 +29,18 @@ async function loadGuidePage(){
           ${guides.map(item=>`
             <article class="guide-card">
               <h3>${item.title||""}</h3>
-              ${item.description?`<p>${item.description}</p>`:""}
+
+              ${item.description?`
+                <p>${item.description}</p>
+              `:""}
+
               ${item.video_url?`
-                <a class="buy-btn" href="${item.video_url}" target="_blank" rel="noopener noreferrer">
+                <a
+                  class="buy-btn"
+                  href="${item.video_url}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   ▶ XEM HƯỚNG DẪN
                 </a>
               `:""}
@@ -30,8 +48,11 @@ async function loadGuidePage(){
           `).join("")}
         </div>
       </main>
+
+      ${renderFooter()}
     `;
-  }catch(error){
+  }
+  catch(error){
     showLoadError(error);
   }
 }
