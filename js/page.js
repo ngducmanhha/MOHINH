@@ -10,8 +10,7 @@ async function loadSite(){
       ${renderFilters()}
 
       <div class="price-note">
-        GIÁ THỰC TẾ ĐÔI KHI CÒN THẤP HƠN,
-        ĐẶC BIỆT KHI CÓ XU HOẶC VIP
+        GIÁ THỰC TẾ ĐÔI KHI CÒN THẤP HƠN SAU KHI ÁP ĐẦY ĐỦ VOUCHER
       </div>
 
       <section class="products" id="products"></section>
