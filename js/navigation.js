@@ -2,7 +2,7 @@ const SITE_NAV_ITEMS=[
   {page:"KITTRUNG",label:"KIT TRUNG",href:"index.html"},
   {page:"BANDAI",label:"BANDAI",href:"bandai.html"},
   {page:"PHUKIEN",label:"PHỤ KIỆN",href:"phukien.html"},
-  {page:"GUIDE",label:"HƯỚNG DẪN",href:"guide.html"},
+  {page:"GUIDE",label:"HƯỚNG DẪN",href:"huongdan.html"},
   {page:"GIOITHIEU",label:"GIỚI THIỆU",href:"gioithieu.html"},
   {page:"CHINHSACH",label:"CHÍNH SÁCH",href:"chinhsach.html"}
 ];
