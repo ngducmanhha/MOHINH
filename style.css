@@ -562,32 +562,75 @@ display:block;
   position:absolute;
   z-index:10;
 
-.badge-code{
+  font-size:10px;
+  font-weight:800;
+  line-height:1;
+
+  padding:5px 7px;
+  border-radius:6px;
+
+  white-space:nowrap;
+}
+
+/* MÃ GIẢM - CAM */
+
+.image-wrap .badge-code{
+  top:6px;
+  left:6px;
+  right:auto;
+  bottom:auto;
+
   background:#f97316;
   color:#fff;
 }
 
-.badge-hunt{
+/* SĂN NGAY - XANH LÁ */
+
+.image-wrap .badge-hunt{
+  top:6px;
+  left:6px;
+  right:auto;
+  bottom:auto;
+
   background:#16a34a;
   color:#fff;
 }
 
-.badge-new{
+/* NEW - VÀNG */
+
+.image-wrap .badge-new{
+  top:6px;
+  left:6px;
+  right:auto;
+  bottom:auto;
+
   background:#ffcc00;
   color:#111;
 }
 
-.badge-preorder{
+/* PRE-ORDER - XANH DƯƠNG */
+
+.image-wrap .badge-preorder{
+  top:6px;
+  left:6px;
+  right:auto;
+  bottom:auto;
+
   background:#2563eb;
   color:#fff;
 }
 
-.badge-low-stock{
-  position:absolute;
-  right:6px;
-  bottom:6px;
+/* SẮP HẾT - GÓC DƯỚI PHẢI */
+
+.image-wrap .badge-low-stock{
   top:auto;
   left:auto;
+  right:6px;
+  bottom:6px;
+
+  background:#dc2626;
+  color:#fff;
+}
 
   background:#dc2626;
   color:#fff;
