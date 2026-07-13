@@ -37,3 +37,21 @@ Bandai, phụ kiện và mã giảm giá.
 `;
 
 }
+function renderFloatingButtons() {
+
+    document.body.insertAdjacentHTML(
+        "beforeend",
+        `
+        <a
+            class="floating-guide"
+            href="huongdan.html"
+            title="Hướng dẫn áp Voucher">
+
+            💸
+            <span>GIẢM<br>THÊM</span>
+
+        </a>
+        `
+    );
+
+}
