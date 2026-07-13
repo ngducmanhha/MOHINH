@@ -27,3 +27,4 @@ async function loadSite(){
 }
 
 document.addEventListener("DOMContentLoaded",loadSite);
+renderFloatingButtons();
