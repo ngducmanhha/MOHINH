@@ -1,6 +1,7 @@
 const SITE_NAV_ITEMS=[
   {page:"KITTRUNG",label:"KIT TRUNG",href:"index.html"},
   {page:"BANDAI",label:"BANDAI",href:"bandai.html"},
+  {page:"XECOKHI",label:"XE VÀ CƠ KHÍ",href:"xecokhi.html"},
   {page:"PHUKIEN",label:"PHỤ KIỆN",href:"phukien.html"},
   {page:"GUIDE",label:"HƯỚNG DẪN",href:"huongdan.html"},
   {page:"GIOITHIEU",label:"GIỚI THIỆU",href:"gioithieu.html"},
