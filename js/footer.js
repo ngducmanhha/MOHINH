@@ -37,21 +37,30 @@ Bandai, phụ kiện và mã giảm giá.
 `;
 
 }
-function renderFloatingButtons() {
+function renderFloatingButtons(){
 
-    document.body.insertAdjacentHTML(
-        "beforeend",
-        `
-        <a
-            class="floating-guide"
-            href="huongdan.html"
-            title="Hướng dẫn áp Voucher">
+document.body.insertAdjacentHTML(
+"beforeend",
+`
+<div class="floating-buttons">
+<a
+class="floating-btn btn-guide"
+href="huongdan.html">
 
-            💸
-            <span>GIẢM<br>THÊM</span>
+💸<br>GIẢM<br>THÊM
 
-        </a>
-        `
-    );
+</a>
+<a
+class="floating-btn btn-zalo"
+href="https://zalo.me/g/XXXXXXXX"
+target="_blank">
+
+💬<br>VÀO<br>NHÓM
+
+</a>
+
+</div>
+`
+);
 
 }
