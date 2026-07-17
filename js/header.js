@@ -36,7 +36,7 @@ function renderHero(){
       <div class="hero-box">
         <div class="hero-title">${SITE_EVENT.hero_title||""}</div>
         <div class="hero-sub">${SITE_EVENT.hero_subtitle||""}</div>
-        <div class="hero-btn">🎁 ${SITE_EVENT.button_text||""}</div>
+        <div class="hero-btn">href="${SITE_EVENT.form_link || "#"}"🎁 ${SITE_EVENT.button_text||""}</div>
       </div>
     </section>
   `;
