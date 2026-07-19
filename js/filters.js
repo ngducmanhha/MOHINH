@@ -1,3 +1,4 @@
+let VIEW_MODE = "BEST";
 function renderSearch(){
 
   return `
@@ -42,7 +43,6 @@ function renderSearch(){
 
 </div>
 </div>
-let VIEW_MODE = "BEST";
   `;
 
 }
