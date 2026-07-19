@@ -41,6 +41,7 @@ function renderSearch(){
     </label>
 
 </div>
+let VIEW_MODE = "BEST";
   `;
 
 }
