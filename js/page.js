@@ -25,6 +25,18 @@ async function loadSite(){
     showLoadError(error);
   }
 }
+document
+.querySelectorAll('input[name="viewMode"]')
+.forEach(item=>{
 
+    item.onchange=function(){
+
+        VIEW_MODE=this.value;
+
+        renderProducts();
+
+    };
+
+});
 document.addEventListener("DOMContentLoaded",loadSite);
 renderFloatingButtons();
