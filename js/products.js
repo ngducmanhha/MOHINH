@@ -127,7 +127,7 @@ function renderProducts(){
         <div class="card-content">
 
           <div class="brand">
-            ${product.brand || ""}
+            ${product.shop || ""}
           </div>
 
 
@@ -143,14 +143,6 @@ function renderProducts(){
             </div>
 
           ` : ""}
-
-
-          <div class="old-price">
-
-            ${money(product.original_price)}đ
-
-          </div>
-
 
           <div class="sale-price">
 
