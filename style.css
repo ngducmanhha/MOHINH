@@ -183,7 +183,7 @@ font-weight:900;
 }
 
 .search-wrap{
-padding:0 12px 14px;
+padding:0 12px 4px;
 }
 
 .search-box{
@@ -250,7 +250,7 @@ color:#8b95a7;
 
     padding-top:8px;
 
-    padding-bottom:6px;
+    padding-bottom:0px;
     background:linear-gradient(
 180deg,
 #f12718,
