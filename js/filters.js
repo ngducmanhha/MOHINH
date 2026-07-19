@@ -230,7 +230,7 @@ function getFilteredProducts(){
 
     products = products.filter(product =>
 
-      String(product.product_name || "")
+      String(product.full_name || "")
         .toLowerCase()
         .includes(keyword)
 
