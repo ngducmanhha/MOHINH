@@ -203,7 +203,43 @@ border:1px solid rgba(255,255,255,.08);
 .search-box::placeholder{
 color:#8b95a7;
 }
+.view-mode{
 
+    display:flex;
+
+    justify-content:center;
+
+    gap:18px;
+
+    padding:0 12px 12px;
+
+    background:var(--bg);
+
+}
+
+.view-option{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+.view-option input{
+
+    accent-color:#ffcc00;
+
+}
 .site-nav{
 
 display:flex;
