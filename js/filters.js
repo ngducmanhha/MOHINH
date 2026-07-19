@@ -237,7 +237,13 @@ function getFilteredProducts(){
 
   }
 
+if(VIEW_MODE === "BEST"){
 
+    products = products.filter(product =>
+        Number(product.is_best) === 1
+    );
+
+}
   return products;
 
 }
