@@ -83,7 +83,19 @@ function renderLowStockBadge(product){
 
 }
 
+function renderBestPriceBadge(product){
 
+  if(Number(product.is_best) !== 1){
+    return "";
+  }
+
+  return `
+    <div class="badge badge-best-price">
+      🏆 RẺ NHẤT
+    </div>
+  `;
+
+}
 function renderProducts(){
 
   const container =
