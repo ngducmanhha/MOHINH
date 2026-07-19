@@ -14,7 +14,7 @@ function renderSearch(){
           type="search"
           id="searchBox"
           class="search-box"
-          placeholder="🔍 Tìm tên sản phẩm..."
+          placeholder="🔍 Tìm tên sp/shop/hãng..."
           enterkeyhint="search"
           autocomplete="off"
         >
