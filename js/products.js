@@ -124,7 +124,7 @@ function renderProducts(){
         <div class="image-wrap">
 
           ${renderTopBadge(product)}
-
+          ${renderBestPriceBadge(product)}
           ${renderLowStockBadge(product)}
 
           <img
