@@ -1,7 +1,7 @@
 function renderSearch(){
 
   return `
-
+<div class="sticky-search">
     <div class="search-wrap">
 
       <form
@@ -40,6 +40,7 @@ function renderSearch(){
         <span>🏪 Tất cả các shop</span>
     </label>
 
+</div>
 </div>
 let VIEW_MODE = "BEST";
   `;
