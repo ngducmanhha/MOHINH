@@ -21,7 +21,26 @@ function renderSearch(){
       </form>
 
     </div>
+<div class="view-mode">
 
+    <label class="view-option">
+        <input
+            type="radio"
+            name="viewMode"
+            value="BEST"
+            checked>
+        <span>🏆 Chỉ hiện rẻ nhất</span>
+    </label>
+
+    <label class="view-option">
+        <input
+            type="radio"
+            name="viewMode"
+            value="ALL">
+        <span>🏪 Tất cả các shop</span>
+    </label>
+
+</div>
   `;
 
 }
