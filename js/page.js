@@ -20,12 +20,7 @@ async function loadSite(){
 
     renderProducts();
     bindFilters();
-  }
-  catch(error){
-    showLoadError(error);
-  }
-}
-document
+    document
 .querySelectorAll('input[name="viewMode"]')
 .forEach(item=>{
 
@@ -38,5 +33,11 @@ document
     };
 
 });
+  }
+  catch(error){
+    showLoadError(error);
+  }
+}
+
 document.addEventListener("DOMContentLoaded",loadSite);
 renderFloatingButtons();
