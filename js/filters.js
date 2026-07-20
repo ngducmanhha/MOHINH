@@ -145,88 +145,107 @@ function renderFilters(){
 
 function getFilteredProducts(){
 
-  let products = [...ALL_PRODUCTS];
+  let products;
 
+  // ===== TRANG TOP =====
+  if(window.IS_TOP_PAGE){
 
-  if(CURRENT_FILTER === "HOT"){
+    products = ALL_PRODUCTS.filter(product =>
 
-    products = products.filter(product =>
+      Number(product[TOP_TYPE]) > 0
 
-      product.hot === true
+    );
+
+    products.sort((a,b)=>
+
+      Number(a[TOP_TYPE]) -
+
+      Number(b[TOP_TYPE])
 
     );
 
   }
 
+  // ===== TRANG THƯỜNG =====
+  else{
 
-  else if(CURRENT_FILTER === "FEATURED"){
+    products = [...ALL_PRODUCTS];
 
-    products = products.filter(product =>
+    if(CURRENT_FILTER === "HOT"){
 
-      product.featured === true
+      products = products.filter(product =>
 
-    );
+        product.hot === true
+
+      );
+
+    }
+
+    else if(CURRENT_FILTER === "FEATURED"){
+
+      products = products.filter(product =>
+
+        product.featured === true
+
+      );
+
+    }
+
+    else if(CURRENT_FILTER === "LOWSTOCK"){
+
+      products = products.filter(product =>
+
+        product.hot === true
+        ||
+        product.featured === true
+        ||
+        textUpper(product.stock_text)
+          .includes("PRE-ORDER")
+
+      );
+
+    }
+
+    else if(CURRENT_FILTER === "PREORDER"){
+
+      products = products.filter(product =>
+
+        textUpper(product.stock_text)
+          .includes("PRE-ORDER")
+
+      );
+
+    }
+
+    else if(CURRENT_FILTER === "NEW"){
+
+      products = products.filter(product =>
+
+        textUpper(product.stock_text)
+          .includes("NEW")
+
+      );
+
+    }
+
+    else if(CURRENT_FILTER !== "ALL"){
+
+      products = products.filter(product =>
+
+        textUpper(product.brand)
+          .includes(CURRENT_FILTER)
+
+      );
+
+    }
 
   }
 
-
-  else if(CURRENT_FILTER === "LOWSTOCK"){
-
-    products = products.filter(product =>
-
-      product.hot === true
-      ||
-      product.featured === true
-      ||
-      textUpper(product.stock_text)
-        .includes("PRE-ORDER")
-
-    );
-
-  }
-
-
-  else if(CURRENT_FILTER === "PREORDER"){
-
-    products = products.filter(product =>
-
-      textUpper(product.stock_text)
-        .includes("PRE-ORDER")
-
-    );
-
-  }
-
-
-  else if(CURRENT_FILTER === "NEW"){
-
-    products = products.filter(product =>
-
-      textUpper(product.stock_text)
-        .includes("NEW")
-
-    );
-
-  }
-
-
-  else if(CURRENT_FILTER !== "ALL"){
-
-    products = products.filter(product =>
-
-      textUpper(product.brand)
-        .includes(CURRENT_FILTER)
-
-    );
-
-  }
-
+  // ===== SEARCH =====
 
   if(SEARCH_KEYWORD){
 
-    const keyword =
-    SEARCH_KEYWORD.toLowerCase();
-
+    const keyword = SEARCH_KEYWORD.toLowerCase();
 
     products = products.filter(product =>
 
@@ -238,13 +257,18 @@ function getFilteredProducts(){
 
   }
 
-if(VIEW_MODE === "BEST"){
+  // ===== CHỈ HIỆN RẺ NHẤT =====
+
+  if(VIEW_MODE === "BEST"){
 
     products = products.filter(product =>
-        Number(product.is_best) === 1
+
+      Number(product.is_best) === 1
+
     );
 
-}
+  }
+
   return products;
 
 }
