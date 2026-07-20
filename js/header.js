@@ -33,88 +33,84 @@ function renderHeader(){
 
 function renderHero(){
 
-  const today = new Date();
+    const today = new Date();
 
-  const banners = (SITE_DATA.CAROUSEL || [])
-    .filter(item => {
+    const banners = (SITE_DATA.CAROUSEL || [])
+        .filter(item=>{
 
-      const start = new Date(item.start_date);
-      const end = new Date(item.end_date);
+            const start = new Date(item.start_day || item.start_date);
+            const stop  = new Date(item.stop_day || item.end_date);
 
-      return today >= start && today <= end;
+            return today>=start && today<=stop;
 
-    })
-    .sort((a,b)=>Number(a.id)-Number(b.id));
+        })
+        .sort((a,b)=>Number(a.id)-Number(b.id));
 
-  if(!banners.length) return "";
+    if(!banners.length) return "";
 
-  return `
+    return `
 
-    <section class="hero">
+<section class="hero">
 
-      <div class="hero-slider">
+<div class="swiper heroSwiper">
 
-        ${banners.map((item,index)=>`
+<div class="swiper-wrapper">
 
-          <a
-            class="hero-slide ${index===0?"active":""}"
-            href="${item.link}"
-            target="_blank"
-            rel="noopener noreferrer">
+${banners.map(item=>`
 
-            <img
-              src="${item.img_url}"
-              alt="${item.title}">
+<div class="swiper-slide">
 
-          </a>
+<a href="${item.link}">
 
-        `).join("")}
+<img
+src="${item.img_url}"
+alt="${item.title}">
 
-      </div>
+</a>
 
-      <div class="hero-dots">
+</div>
 
-        ${banners.map((item,index)=>`
+`).join("")}
 
-          <span
-            class="hero-dot ${index===0?"active":""}"
-            data-index="${index}">
-          </span>
+</div>
 
-        `).join("")}
+<div class="swiper-pagination"></div>
 
-      </div>
+</div>
 
-    </section>
+</section>
 
-  `;
+`;
 
 }
 document.addEventListener("DOMContentLoaded",()=>{
 
-    let current=0;
+    const waitHero = setInterval(()=>{
 
-    setInterval(()=>{
+        if(document.querySelector(".heroSwiper")){
 
-        const slides=document.querySelectorAll(".hero-slide");
-        const dots=document.querySelectorAll(".hero-dot");
+            clearInterval(waitHero);
 
-        if(slides.length<=1) return;
+            new Swiper(".heroSwiper",{
 
-        slides[current].classList.remove("active");
-        dots[current].classList.remove("active");
+                loop:true,
 
-        current++;
+                speed:500,
 
-        if(current>=slides.length){
+                autoplay:{
+                    delay:4000,
+                    disableOnInteraction:false
+                },
 
-            current=0;
+                pagination:{
+                    el:".swiper-pagination",
+                    clickable:true
+                }
+
+            });
 
         }
 
-        slides[current].classList.add("active");
-        dots[current].classList.add("active");
-
-    },4000);
+    },100);
 
 });
