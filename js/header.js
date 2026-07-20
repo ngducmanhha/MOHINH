@@ -32,20 +32,89 @@ function renderHeader(){
 }
 
 function renderHero(){
+
+  const today = new Date();
+
+  const banners = (SITE_DATA.CAROUSEL || [])
+    .filter(item => {
+
+      const start = new Date(item.start_date);
+      const end = new Date(item.end_date);
+
+      return today >= start && today <= end;
+
+    })
+    .sort((a,b)=>Number(a.id)-Number(b.id));
+
+  if(!banners.length) return "";
+
   return `
+
     <section class="hero">
-      <div class="hero-box">
-        <div class="hero-title">${SITE_EVENT.hero_title||""}</div>
-        <div class="hero-sub">${SITE_EVENT.hero_subtitle||""}</div>
-<a
-          class="hero-btn"
-          href="${SITE_EVENT.form_link || "#"}"
-          target="_blank"
-          rel="noopener noreferrer">
 
-          🎁 ${SITE_EVENT.button_text || "NHẬN SỐ QUAY"}
+      <div class="hero-slider">
 
-        </a>      </div>
+        ${banners.map((item,index)=>`
+
+          <a
+            class="hero-slide ${index===0?"active":""}"
+            href="${item.link}"
+            target="_blank"
+            rel="noopener noreferrer">
+
+            <img
+              src="${item.img_url}"
+              alt="${item.title}">
+
+          </a>
+
+        `).join("")}
+
+      </div>
+
+      <div class="hero-dots">
+
+        ${banners.map((item,index)=>`
+
+          <span
+            class="hero-dot ${index===0?"active":""}"
+            data-index="${index}">
+          </span>
+
+        `).join("")}
+
+      </div>
+
     </section>
+
   `;
+
 }
+document.addEventListener("DOMContentLoaded",()=>{
+
+    let current=0;
+
+    setInterval(()=>{
+
+        const slides=document.querySelectorAll(".hero-slide");
+        const dots=document.querySelectorAll(".hero-dot");
+
+        if(slides.length<=1) return;
+
+        slides[current].classList.remove("active");
+        dots[current].classList.remove("active");
+
+        current++;
+
+        if(current>=slides.length){
+
+            current=0;
+
+        }
+
+        slides[current].classList.add("active");
+        dots[current].classList.add("active");
+
+    },4000);
+
+});
