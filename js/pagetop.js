@@ -4,24 +4,35 @@ async function loadSite(){
 
     await loadData();
 
-    document.getElementById("app").innerHTML=`
+    // Lấy thông tin banner của trang TOP
+    const topInfo =
+      (SITE_DATA.TOP || []).find(
+        item => String(item.type).trim() === String(TOP_TYPE).trim()
+      );
 
-   ${renderHeader()}
+    document.getElementById("app").innerHTML = `
 
-${topInfo ? `
-<div class="top-banner">
+      ${renderHeader()}
 
-    <img
-        src="${topInfo.image_url}"
-        alt="${topInfo.title}"
-        class="top-banner-image">
+      ${
+        topInfo ? `
+          <div class="top-banner">
 
-</div>
-` : ""}
+            <img
+              src="${topInfo.image_url || ""}"
+              alt="${topInfo.title || ""}"
+              class="top-banner-image">
 
-${renderViewModeOnly()}
+          </div>
+        ` : ""
+      }
 
-<section class="products" id="products"></section>
+      ${renderViewModeOnly()}
+
+      <section
+        class="products"
+        id="products">
+      </section>
 
       ${renderFooter()}
 
@@ -42,8 +53,8 @@ ${renderViewModeOnly()}
 }
 
 document.addEventListener(
-    "DOMContentLoaded",
-    loadSite
+  "DOMContentLoaded",
+  loadSite
 );
 
 renderFloatingButtons();
