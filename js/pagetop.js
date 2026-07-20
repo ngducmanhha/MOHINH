@@ -33,7 +33,9 @@ async function loadSite(){
         class="products"
         id="products">
       </section>
-
+<a href="index.html" class="home-bar">
+    🔥 QUAY VỀ TRANG CHỦ XEM THÊM DEAL
+</a>
       ${renderFooter()}
 
     `;
