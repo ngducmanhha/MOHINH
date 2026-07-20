@@ -181,7 +181,21 @@ font-size:15px;
 font-weight:900;
 
 }
+.top-banner{
 
+    padding:10px 12px 6px;
+
+}
+
+.top-banner-image{
+
+    width:100%;
+
+    display:block;
+
+    border-radius:12px;
+
+}
 .search-wrap{
 padding:0 12px 4px;
 }
