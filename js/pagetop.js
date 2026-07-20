@@ -6,11 +6,22 @@ async function loadSite(){
 
     document.getElementById("app").innerHTML=`
 
-      ${renderHeader()}
+   ${renderHeader()}
 
-      ${renderViewModeOnly()}
+${topInfo ? `
+<div class="top-banner">
 
-      <section class="products" id="products"></section>
+    <img
+        src="${topInfo.image_url}"
+        alt="${topInfo.title}"
+        class="top-banner-image">
+
+</div>
+` : ""}
+
+${renderViewModeOnly()}
+
+<section class="products" id="products"></section>
 
       ${renderFooter()}
 
