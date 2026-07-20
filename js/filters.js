@@ -388,5 +388,18 @@ function bindFilters(){
       );
 
     });
+  document
+  .querySelectorAll('input[name="viewMode"]')
+  .forEach(radio => {
+
+    radio.addEventListener("change", function(){
+
+      VIEW_MODE = this.value;
+
+      renderProducts();
+
+    });
+
+  });
 
 }
