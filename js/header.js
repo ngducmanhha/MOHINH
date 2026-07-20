@@ -8,16 +8,17 @@ function getZaloLink(){
 function renderHeader(){
   return `
     <header class="header">
-      <div class="logo">
-        <div class="logo-mark">
-          <img src="https://cdn-icons-png.flaticon.com/512/6143/6143353.png" alt="logo">
-        </div>
+    
+     <a href="index.html" class="logo">
+  <div class="logo-mark">
+    <img src="https://cdn-icons-png.flaticon.com/512/6143/6143353.png" alt="logo">
+  </div>
 
-        <div class="logo-text">
-          <h1>TRẠM DEAL GIÁ ĐÁY</h1>
-          <p>${SITE_CONFIG.page_title||"MẠNH HÀ MÊ CHƠI ĐỒ"}</p>
-        </div>
-      </div>
+  <div class="logo-text">
+    <h1>TRẠM DEAL GIÁ ĐÁY</h1>
+    <p>${SITE_CONFIG.page_title||"MẠNH HÀ MÊ CHƠI ĐỒ"}</p>
+  </div>
+</a>
 
       <div class="header-actions">
         <span class="support-text">HỖ TRỢ 24/24</span>
