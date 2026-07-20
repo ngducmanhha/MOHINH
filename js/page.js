@@ -4,18 +4,11 @@ async function loadSite(){
 
     document.getElementById("app").innerHTML=`
 
-  ${renderHeader()}
-  ${window.IS_TOP_PAGE ? "" : renderHero()}
-  ${window.IS_TOP_PAGE
-      ? renderViewModeOnly()
-      : renderSearch()
-  }
-  ${renderNavigation()}
-  ${window.IS_TOP_PAGE
-      ? ""
-      : renderFilters()
-  }
-  ${window.IS_TOP_PAGE ? "" : `
+      ${renderHeader()}
+      ${renderHero()}
+      ${renderSearch()}
+      ${renderNavigation()}
+      ${renderFilters()}
 
       <div class="price-note">
         HÃY CHỌN VOUCHER TỐT NHẤT TRONG MỤC "SHOPEE VOUCHER"
