@@ -862,21 +862,47 @@ text-decoration:none;
 color:inherit;
 }
 .home-bar{
-    width:100%;
-    margin:20px 0;
+
+    display:block;
+
+    width:calc(100% - 24px);
+
+    margin:18px auto 24px;
+
+    padding:16px 20px;
+
+    background:#e60012;
+
+    color:#fff;
+
+    text-align:center;
+
+    text-decoration:none;
+
+    font-size:20px;
+
+    font-weight:800;
+
+    border-radius:14px;
+
+    box-sizing:border-box;
+
+    transition:.2s;
+
+    box-shadow:0 6px 18px rgba(230,0,18,.35);
+
 }
 
-.home-bar a{
-    display:block;
-    width:100%;
-    padding:16px 0;
-    background:#ff6a00;
-    color:#fff;
-    text-align:center;
-    text-decoration:none;
-    font-size:18px;
-    font-weight:bold;
-    border-radius:8px;
+.home-bar:hover{
+
+    background:#ff1f1f;
+
+}
+
+.home-bar:active{
+
+    transform:scale(.98);
+
 }
   
 /* ===== Floating Buttons ===== */
