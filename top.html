@@ -24,10 +24,10 @@ content="website">
 content="Mạnh Hà Mê Chơi Đồ">
 
 <meta property="og:description"
-content="Trạm Deal Giá Đáy - Mô hình Giá Đáy">
+content="${topInfo.title || ""}">
 
 <meta property="og:image"
-content="https://ngducmanhha.github.io/MOHINH/images/image.png">
+content="${topInfo.image_url || ""}">
 
 <meta property="og:url"
 content="https://ngducmanhha.github.io/MOHINH/">
@@ -43,7 +43,9 @@ href="https://cdn-icons-png.flaticon.com/512/6143/6143353.png">
 <body>
 
 <div id="app"></div>
-
+<a href="/MOHINH/" class="home-bar">
+  VỀ TRANG CHỦ
+</a>
 <script src="js/top.js"></script>
 
 <script src="js/core.js"></script>
@@ -55,9 +57,6 @@ href="https://cdn-icons-png.flaticon.com/512/6143/6143353.png">
 <script src="js/filters.js"></script>
 
 <script src="js/products.js"></script>
-<a href="/" class="home_bar">
-  VỀ TRANG CHỦ
-</a>
 
 <script src="js/footer.js"></script>
 
