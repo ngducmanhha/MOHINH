@@ -861,7 +861,24 @@ text-decoration:none;
 text-decoration:none;
 color:inherit;
 }
+.home_bar{
+    width:100%;
+    margin:20px 0;
+}
 
+.home_bar a{
+    display:block;
+    width:100%;
+    padding:16px 0;
+    background:#ff6a00;
+    color:#fff;
+    text-align:center;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:bold;
+    border-radius:8px; /* Bỏ dòng này nếu muốn vuông góc */
+}
+  
 /* ===== Floating Buttons ===== */
 
 .floating-buttons{
